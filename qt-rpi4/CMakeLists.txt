@@ -7,8 +7,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(Qt6 REQUIRED COMPONENTS Core)
 qt_standard_project_setup()
 
-add_subdirectory(src)
-add_subdirectory(core)
+add_subdirectory(src/app)
+add_subdirectory(src/core)
 add_subdirectory(test)
 
 #qt_add_executable(appqt-rpi4

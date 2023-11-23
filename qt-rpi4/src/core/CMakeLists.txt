@@ -12,3 +12,4 @@ add_library(rpi4_core_lib STATIC
 
 target_link_libraries(rpi4_core_lib PRIVATE Qt6::Core)
 
+target_include_directories(rpi4_core_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

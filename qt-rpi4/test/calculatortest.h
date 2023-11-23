@@ -2,7 +2,7 @@
 #define CALCULATORTEST_H
 
 #include <QObject>
-#include "../core/calculator.h"
+#include <calculator.h>
 
 class CalculatorTest : public QObject
 {

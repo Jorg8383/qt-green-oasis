@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QTest>
-#include "../core/stringgenerator.h"
+#include <stringgenerator.h>
 
 class StringTest : public QObject
 {

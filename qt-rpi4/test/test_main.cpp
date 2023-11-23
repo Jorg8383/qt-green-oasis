@@ -6,7 +6,7 @@
 int main(int argc, char** argv)
 {
 
-    // Use a lambda function to avoid writing the same code for each test class
+    // Use a lambda function to avoid writing the same code for each test suite
     int status = 0;
     auto ASSERT_TEST = [&status, argc, argv](QObject* obj) {
         status |= QTest::qExec(obj, argc, argv);

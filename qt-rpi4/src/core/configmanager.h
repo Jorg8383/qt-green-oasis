@@ -4,7 +4,9 @@
 #include <QObject>
 #include <QFile>
 #include <QTextStream>
-#include <QSettings>
+#include <QMap>
+#include <QVariant>
+#include <QDebug>
 
 class ConfigManager : public QObject
 {
@@ -12,12 +14,12 @@ class ConfigManager : public QObject
 public:
     explicit ConfigManager(const QString &configFileName = "", QObject *parent = nullptr);
 
-    QVariant getValue(const QString &key, bool fromEnv = false) const;
+    QVariant getValue(const QString &key) const;
 
 signals:
 
 private:
-    QSettings m_settings;
+    QMap<QString, QVariant> m_configData;
 };
 
 #endif // CONFIGMANAGER_H

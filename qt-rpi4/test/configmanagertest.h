@@ -1,15 +1,15 @@
-#ifndef TESTCONFIGMANAGER_H
-#define TESTCONFIGMANAGER_H
+#ifndef CONFIGMANAGERTEST_H
+#define CONFIGMANAGERTEST_H
 
 #include <QObject>
 #include <QTest>
 #include <configmanager.h>
 
-class TestConfigManager : public QObject
+class ConfigManagerTest : public QObject
 {
     Q_OBJECT
 public:
-    explicit TestConfigManager(QObject *parent = nullptr);
+    explicit ConfigManagerTest(QObject *parent = nullptr);
 
 signals:
 
@@ -20,4 +20,4 @@ private slots:
 
 };
 
-#endif // TESTCONFIGMANAGER_H
+#endif // CONFIGMANAGERTEST_H

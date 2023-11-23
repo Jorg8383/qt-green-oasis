@@ -17,6 +17,7 @@ private slots:
     void initTestCase();
     void cleanupTestCase();
     void testGetValue();
+    void testKeyNotFound();
 
 };
 

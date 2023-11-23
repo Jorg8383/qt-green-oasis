@@ -1,6 +1,4 @@
 #include <QTest>
-#include "calculatortest.h"
-#include "stringtest.h"
 #include "configmanagertest.h"
 
 int main(int argc, char** argv)
@@ -14,8 +12,6 @@ int main(int argc, char** argv)
     };
 
     // Add new tests here...
-    ASSERT_TEST(new CalculatorTest());
-    ASSERT_TEST(new StringTest());
     ASSERT_TEST(new ConfigManagerTest());
 
     return status;

@@ -7,8 +7,8 @@ find_package(Qt6 COMPONENTS Core Test REQUIRED)
 
 add_executable(rpi4_tests
     test_main.cpp
-    calculatortest.h calculatortest.cpp
-    stringtest.h stringtest.cpp
+
+
     configmanagertest.h configmanagertest.cpp
 )
 

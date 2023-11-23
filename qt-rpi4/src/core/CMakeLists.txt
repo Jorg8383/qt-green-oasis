@@ -6,8 +6,8 @@ set(CMAKE_AUTOMOC ON)
 find_package(Qt6 COMPONENTS Core REQUIRED)
 
 add_library(rpi4_core_lib STATIC
-    calculator.h calculator.cpp
-    stringgenerator.h stringgenerator.cpp
+
+
     configmanager.h configmanager.cpp
 )
 

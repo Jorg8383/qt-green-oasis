@@ -10,6 +10,8 @@ public:
     explicit Calculator(QObject *parent = nullptr);
 
     int add(int a, int b);
+    int sub(int a, int b);
+
 
 signals:
 

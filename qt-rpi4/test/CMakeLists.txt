@@ -9,6 +9,7 @@ add_executable(rpi4_tests
     test_main.cpp
     calculatortest.h calculatortest.cpp
     stringtest.h stringtest.cpp
+    testconfigmanager.h testconfigmanager.cpp
 )
 
 target_link_libraries(rpi4_tests PRIVATE Qt6::Core Qt6::Test rpi4_core_lib)

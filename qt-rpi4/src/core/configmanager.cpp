@@ -3,6 +3,8 @@
 ConfigManager::ConfigManager(const QString &configFileName, QObject *parent)
     : QObject{parent}
 {
+    setObjectName("ConfigManager");
+
     QFile configFile(configFileName);
     if (configFile.open(QIODevice::ReadOnly))
     {
@@ -35,5 +37,6 @@ ConfigManager::ConfigManager(const QString &configFileName, QObject *parent)
 
 QVariant ConfigManager::getValue(const QString &key) const
 {
+    if (!m_configData.contains(key)) qWarning() << this << "key not found: " << key;
     return m_configData.value(key);
 }

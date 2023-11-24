@@ -5,3 +5,8 @@ TestWeatherData::TestWeatherData(QObject *parent)
 {
 
 }
+
+void TestWeatherData::testSetWeatherData()
+{
+
+}

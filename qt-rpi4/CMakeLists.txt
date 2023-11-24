@@ -9,6 +9,7 @@ qt_standard_project_setup()
 
 add_subdirectory(src/app)
 add_subdirectory(src/core)
+add_subdirectory(src/weather)
 add_subdirectory(test)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

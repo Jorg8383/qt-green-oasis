@@ -13,7 +13,7 @@ qt_add_qml_module(app_qt_rpi4
 )
 
 target_link_libraries(app_qt_rpi4
-    PRIVATE Qt6::Quick rpi4_core_lib
+    PRIVATE Qt6::Quick rpi4_core_lib rpi4_weather_lib
 )
 
 include(GNUInstallDirs)

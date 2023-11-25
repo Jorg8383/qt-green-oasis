@@ -2,6 +2,7 @@
 #define WEATHERDATATEST_H
 
 #include <QObject>
+#include <QTest>
 #include <weatherdata.h>
 
 class WeatherDataTest : public QObject

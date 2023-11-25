@@ -25,9 +25,24 @@ public:
 signals:
 
 private:
-    QString m_city;
-    QString m_weatherDescription;
-    QString m_weatherMain;
+    bool m_isCurrentWeather; // Flag to differentiate between current weather and forecast item
+
+    int dt; // Unix timestamp in seconds
+    QDateTime m_dateTime; // Date and time format
+    QString m_city; // City name
+
+    QString m_weatherMain; // e.g. "Clouds"
+    QString m_weatherDescription; // e.g. "overcast clouds"
+    QString m_weatherIcon; // Weather icon id
+
+    double m_temperature; // Temperature
+    double m_minTemperature; // Min. Temperature
+    double m_maxTemperature; // Max. Temperature
+    int m_humidity; // Humidity [%]
+    int m_cloudiness; // Cloudiness [%]
+    double m_windSpeed; // Wind speed [m/s]
+
+    double m_snow; // Snow volume [mm]
 };
 
 #endif // WEATHERDATA_H

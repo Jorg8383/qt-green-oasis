@@ -11,11 +11,16 @@ public:
 
     void setWeatherData(const QString& city, const QString& description, const QString& main);
 
+
+
     QString city() const;
+    void setCity(const QString &newCity);
 
     QString weatherDescription() const;
+    void setWeatherDescription(const QString &newWeatherDescription);
 
     QString weatherMain() const;
+    void setWeatherMain(const QString &newWeatherMain);
 
 signals:
 

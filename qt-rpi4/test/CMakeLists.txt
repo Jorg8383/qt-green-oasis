@@ -11,5 +11,5 @@ add_executable(rpi4_tests
     weatherdatatest.h weatherdatatest.cpp
 )
 
-target_link_libraries(rpi4_tests PRIVATE Qt6::Core Qt6::Test rpi4_core_lib)
+target_link_libraries(rpi4_tests PRIVATE Qt6::Core Qt6::Test rpi4_core_lib rpi4_weather_lib)
 

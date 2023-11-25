@@ -8,5 +8,5 @@ WeatherDataTest::WeatherDataTest(QObject *parent)
 
 void WeatherDataTest::testSetWeatherData()
 {
-
+    WeatherData data;
 }

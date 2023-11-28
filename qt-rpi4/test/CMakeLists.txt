@@ -9,6 +9,7 @@ add_executable(rpi4_tests
     test_main.cpp
     configmanagertest.h configmanagertest.cpp
     weatherdatatest.h weatherdatatest.cpp
+    weathermodeltest.h weathermodeltest.cpp
 )
 
 target_link_libraries(rpi4_tests PRIVATE Qt6::Core Qt6::Test rpi4_core_lib rpi4_weather_lib)

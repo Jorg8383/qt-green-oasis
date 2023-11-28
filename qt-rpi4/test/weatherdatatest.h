@@ -14,7 +14,7 @@ public:
 signals:
 
 private slots:
-    void testSetWeatherData();
+    void testSetAndGet();
 
 };
 

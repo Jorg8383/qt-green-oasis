@@ -6,7 +6,7 @@ WeatherDataTest::WeatherDataTest(QObject *parent)
 
 }
 
-void WeatherDataTest::testSetWeatherData()
+void WeatherDataTest::testSetAndGet()
 {
     WeatherData data;
     data.setCity("Test City");

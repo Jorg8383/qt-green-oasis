@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QTest>
 #include <weatherdata.h>
+#include <weathermodel.h>
 
 class WeatherModelTest : public QObject
 {

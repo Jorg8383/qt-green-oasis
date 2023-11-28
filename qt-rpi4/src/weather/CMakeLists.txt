@@ -7,6 +7,7 @@ find_package(Qt6 COMPONENTS Core REQUIRED)
 
 add_library(rpi4_weather_lib STATIC
     weatherdata.h weatherdata.cpp
+    weathermodel.h weathermodel.cpp
 
 
 #    weatherdata.h weatherdata.cpp

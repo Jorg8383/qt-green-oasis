@@ -8,7 +8,7 @@ class WeatherData : public QObject
 {
     Q_OBJECT
 public:
-    explicit WeatherData(QObject *parent = nullptr);
+    explicit WeatherData(QString objectName = "WeatherData", QObject *parent = nullptr);
 
     void setWeatherData(const QString& city, const QString& description, const QString& main);
 

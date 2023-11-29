@@ -3,7 +3,7 @@
 WeatherModel::WeatherModel(QObject *parent)
     : QAbstractListModel{parent}
 {
-
+    setObjectName("WeatherModel");
 }
 
 WeatherModel::~WeatherModel()

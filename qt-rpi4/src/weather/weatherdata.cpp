@@ -1,9 +1,9 @@
 #include "weatherdata.h"
 
-WeatherData::WeatherData(QObject *parent)
+WeatherData::WeatherData(QString objectName, QObject *parent)
     : QObject{parent}
 {
-
+    setObjectName(objectName);
 }
 
 void WeatherData::setWeatherData(const QString &city, const QString &description, const QString &main)

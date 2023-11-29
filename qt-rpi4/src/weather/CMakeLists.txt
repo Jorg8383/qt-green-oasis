@@ -3,17 +3,18 @@ project(rpi4_weather_lib)
 
 set(CMAKE_AUTOMOC ON)
 
-find_package(Qt6 COMPONENTS Core REQUIRED)
+find_package(Qt6 COMPONENTS Core Network REQUIRED)
 
 add_library(rpi4_weather_lib STATIC
     weatherdata.h weatherdata.cpp
     weathermodel.h weathermodel.cpp
+    weatherfetcher.h weatherfetcher.cpp
 
 
 #    weatherdata.h weatherdata.cpp
 )
 
-target_link_libraries(rpi4_weather_lib PRIVATE Qt6::Core)
+target_link_libraries(rpi4_weather_lib PRIVATE Qt6::Core Qt6::Network)
 
 # This line tells CMake to add the directory of the src/weather/CMakeLists.txt file
 # to the include path when compiling the rpi4_core_lib target and any targets that

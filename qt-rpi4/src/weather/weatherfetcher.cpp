@@ -54,36 +54,44 @@ void WeatherFetcher::replyFinished(QNetworkReply *reply)
             return;
         }
 
-        // If the parsed document is valid, then retrieve weather information
+        // Extract weather information
         if (jsonResponse.isObject())
         {
-            QList<WeatherData*> weatherItemList;
-
-            QJsonObject rootObject = jsonResponse.object();
-
-            // Extract "city" object information
-            QJsonObject cityObject = rootObject["city"].toObject();
-            QString cityName = cityObject["name"].toString();
-
-            // Extract weather information
-            QJsonArray weatherInfoList = rootObject["list"].toArray();
-            for (const QJsonValue& listValue: weatherInfoList)
-            {
-                if (listValue.isObject())
-                {
-                    WeatherData *data = new WeatherData();
-
-                    QJsonObject listObject = listValue.toObject();
-
-                    data->setDt(listObject["dt"].toInt());
-                    data->setObjectName(listObject["dt_txt"].toString());
-
-                }
-            }
+            extractWeatherInfo(jsonResponse);
         }
         else
         {
-            qWarning() << this << " - invalid data received; JSON object was expected";
+            qWarning() << this << " - invalid data; JSON object was expected";
+        }
+    }
+}
+
+void WeatherFetcher::extractWeatherInfo(const QJsonDocument &jsonResponse)
+{
+    QList<WeatherData*> weatherItemList;
+
+    QJsonObject rootObject = jsonResponse.object();
+
+    // Extract "city" object information
+    QJsonObject cityObject = rootObject["city"].toObject();
+    QString cityName = cityObject["name"].toString();
+
+    // Extract weather information
+    QJsonArray weatherInfoList = rootObject["list"].toArray();
+    for (const QJsonValue& listValue: weatherInfoList)
+    {
+        if (listValue.isObject())
+        {
+//            WeatherData *dataEntry = new WeatherData();
+//            dataEntry->setCity(cityName);
+
+//            QJsonObject listObject = listValue.toObject();
+
+//            dataEntry->setDt(listObject["dt"].toInt());
+//            dataEntry->setObjectName(listObject["dt_txt"].toString());
+
+//            QJsonObject mainObject = listObject["main"].toObject();
+
         }
     }
 }

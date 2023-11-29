@@ -29,6 +29,8 @@ private slots:
     void replyFinished(QNetworkReply *reply);
 
 private:
+    void extractWeatherInfo(const QJsonDocument& jsonResponse);
+
     QNetworkAccessManager m_networkManager;
     WeatherModel& m_weatherModel;
     const QString& m_apiKey;

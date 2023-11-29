@@ -6,6 +6,12 @@ WeatherModel::WeatherModel(QObject *parent)
 
 }
 
+WeatherModel::~WeatherModel()
+{
+    // Delete all data entries
+    qDeleteAll(m_data.begin(), m_data.end());
+}
+
 int WeatherModel::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent)

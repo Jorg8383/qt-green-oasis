@@ -2,7 +2,9 @@
 #define WEATHERFETCHER_H
 
 #include <QObject>
+#include <QDebug>
 #include <QNetworkAccessManager>
+#include <QNetworkRequest>
 #include <QNetworkReply>
 #include "weathermodel.h"
 #include "weatherdata.h"

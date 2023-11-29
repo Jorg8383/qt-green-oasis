@@ -11,6 +11,7 @@ class WeatherModel : public QAbstractListModel
     Q_PROPERTY(int count READ rowCount NOTIFY countChanged)
 public:
     explicit WeatherModel(QObject *parent = nullptr);
+    ~WeatherModel(); // Deconstructor
 
     enum Roles {
         CityRole = Qt::UserRole + 1,

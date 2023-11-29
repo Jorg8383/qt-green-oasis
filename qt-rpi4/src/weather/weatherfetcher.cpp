@@ -3,6 +3,7 @@
 WeatherFetcher::WeatherFetcher(WeatherModel &model, const QString &apiKey, QObject *parent)
     : QObject{parent}, m_weatherModel{model}, m_apiKey(apiKey)
 {
+    setObjectName("WeatherFetcher");
     // Create signal and slot connections between this class and the network access manager
     connect(&m_networkManager, &QNetworkAccessManager::finished, this, &WeatherFetcher::replyFinished);
 }
@@ -26,5 +27,6 @@ void WeatherFetcher::getData(const double latitude, const double longitude)
 
 void WeatherFetcher::replyFinished(QNetworkReply *reply)
 {
+    qDebug() << this << "Reply Finished is being invoked...";
 
 }

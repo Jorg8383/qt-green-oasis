@@ -21,13 +21,14 @@ public:
         HumidityRole,
         WindSpeedRole,
         WeatherIconRole
+        // Add other roles as needed
     };
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     QHash<int, QByteArray> roleNames() const override;
 
-    void addWeatherData(WeatherData* data);
+    void setWeatherData(QList<WeatherData*> newData);
 
 signals:
     void countChanged(int count);

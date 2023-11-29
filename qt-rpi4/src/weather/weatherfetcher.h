@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QNetworkAccessManager>
+#include <QNetworkReply>
 #include "weathermodel.h"
 #include "weatherdata.h"
 
@@ -13,8 +14,13 @@ public:
     explicit WeatherFetcher(WeatherModel& model, const QString& apiKey, QObject *parent = nullptr);
     ~WeatherFetcher(); // Deconstructor
     void getData(const double latitude, const double longitude);
-signals:
 
+signals:
+    void dataUpdated();
+    void networkError(QNetworkReply::NetworkError errorCode, const QString& errorString);
+
+private slots:
+    void replyFinished(QNetworkReply *reply);
 
 private:
     QNetworkAccessManager m_networkManager;

@@ -15,3 +15,8 @@ void WeatherFetcher::getData(const double latitude, const double longitude)
 {
 
 }
+
+void WeatherFetcher::replyFinished(QNetworkReply *reply)
+{
+
+}

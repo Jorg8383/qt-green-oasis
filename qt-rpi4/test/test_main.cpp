@@ -1,6 +1,7 @@
 #include <QTest>
 #include "configmanagertest.h"
 #include "weatherdatatest.h"
+#include "weathermodeltest.h"
 
 int main(int argc, char** argv)
 {
@@ -15,6 +16,7 @@ int main(int argc, char** argv)
     // Add new tests here...
     ASSERT_TEST(new ConfigManagerTest());
     ASSERT_TEST(new WeatherDataTest());
+    ASSERT_TEST(new WeatherModelTest());
 
     return status;
 }

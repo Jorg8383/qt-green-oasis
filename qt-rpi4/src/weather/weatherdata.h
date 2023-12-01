@@ -19,21 +19,20 @@ public:
 
     // Properties
     bool isCurrentWeather() const;
-    int getDt() const;
+    int dt() const;
     QDateTime qDateTime() const;
-    QString city() const;
+    QString cityName() const;
+    QString weatherId() const;
     QString weatherMain() const;
     QString weatherDescription() const;
     QString weatherIcon() const;
-    double temperature() const;
-    double minTemperature() const;
-    double maxTemperature() const;
+    double mainTemp() const;
+    double mainTempMin() const;
+    double mainTempMax() const;
     double windSpeed() const;
-    double snow() const;
-    int humidity() const;
-    int cloudiness() const;
-
-    QString weatherId() const;
+    double snow3h() const;
+    double rain3h() const;
+    int pop() const;
 
 signals:
 
@@ -42,19 +41,18 @@ private:
 
     bool m_isCurrentWeather; // Flag to differentiate between current weather and forecast item
     int m_dt; // Unix timestamp in seconds
-    QDateTime m_qDateTime; // Date and time format
-    QString m_city; // City name
+    QDateTime m_qDateTime; // Time of data forecasted, unix, UTC
+    QString m_cityName; // City name
     QString m_weatherId; // Weahter ID
     QString m_weatherMain; // e.g. "Clouds"
     QString m_weatherDescription; // e.g. "overcast clouds"
     QString m_weatherIcon; // Weather icon id
-    double m_temperature; // Temperature
-    double m_minTemperature; // Min. Temperature
-    double m_maxTemperature; // Max. Temperature
+    double m_mainTemp; // Temperature
+    double m_mainTempMin; // Min. Temperature
+    double m_mainTempMax; // Max. Temperature
     double m_windSpeed; // Wind speed [m/s]
-    double m_snow; // Snow volume [mm]
-    int m_humidity; // Humidity [%]
-    int m_cloudiness; // Cloudiness [%]
+    double m_snow3h; // Snow volume for the last 3 hours [mm]
+    double m_rain3h; // Rain volume for the last 3 hours [mm]
     int m_pop; // Probability of precipitation [%]
 
 };

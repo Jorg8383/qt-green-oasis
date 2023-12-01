@@ -8,7 +8,7 @@ WeatherData::WeatherData(QString objectName,
     : QObject{parent}
 {
     setObjectName(objectName);
-    m_city = cityName;
+    m_cityName = cityName;
     m_isCurrentWeather = isCurrentWeather;
 
     if (!data.isEmpty())
@@ -17,7 +17,7 @@ WeatherData::WeatherData(QString objectName,
     }
     else
     {
-        qWarning() << this << " QJsonObject of weather data is empty!";
+        qWarning() << this << "Weather data - QJsonObject - is empty!";
     }
 
 }
@@ -34,22 +34,9 @@ void WeatherData::extractData(const QJsonObject &data)
     if (data.contains("main"))
     {
         QJsonObject mainObject = data["main"].toObject();
-        if (mainObject.contains("temp"))
-        {
-            m_temperature = mainObject["temp"].toDouble();
-        }
-        if (mainObject.contains("temp_min"))
-        {
-            m_minTemperature = mainObject["temp_min"].toDouble();
-        }
-        if (mainObject.contains("temp_max"))
-        {
-            m_maxTemperature = mainObject["temp_max"].toDouble();
-        }
-        if (mainObject.contains("humidity"))
-        {
-            m_humidity = mainObject["humidity"].toInt();
-        }
+        m_mainTemp = mainObject["temp"].toDouble();
+        m_mainTempMin = mainObject["temp_min"].toDouble();
+        m_mainTempMax = mainObject["temp_max"].toDouble();
     }
 
     // Extract "weather" properties
@@ -57,38 +44,16 @@ void WeatherData::extractData(const QJsonObject &data)
     {
         QJsonArray weatherArray = data["weather"].toArray();
         QJsonObject weatherObject = weatherArray.at(0).toObject();
-        if (weatherObject.contains("main"))
-        {
-            m_weatherMain = weatherObject["main"].toString();
-        }
-        if (weatherObject.contains("description"))
-        {
-            m_weatherDescription = weatherObject["description"].toString();
-        }
-        if (weatherObject.contains("icon"))
-        {
-            m_weatherIcon = weatherObject["icon"].toString();
-        }
-    }
-
-    // Extract "clouds" properties
-    if (data.contains("clouds"))
-    {
-        QJsonObject cloudsObject = data["clouds"].toObject();
-        if (cloudsObject.contains("all"))
-        {
-            m_cloudiness = cloudsObject["all"].toInt();
-        }
+        m_weatherMain = weatherObject["main"].toString();
+        m_weatherDescription = weatherObject["description"].toString();
+        m_weatherIcon = weatherObject["icon"].toString();
     }
 
     // Extract "wind" properties
     if (data.contains("wind"))
     {
         QJsonObject windObject = data["wind"].toObject();
-        if (windObject.contains("speed"))
-        {
-            m_windSpeed = windObject["speed"].toDouble();
-        }
+        m_windSpeed = windObject["speed"].toDouble();
     }
 
     // Extract "pop" properties
@@ -98,54 +63,19 @@ void WeatherData::extractData(const QJsonObject &data)
     }
 }
 
-bool WeatherData::isCurrentWeather() const
+int WeatherData::pop() const
 {
-    return m_isCurrentWeather;
+    return m_pop;
 }
 
-int WeatherData::getDt() const
+double WeatherData::rain3h() const
 {
-    return m_dt;
+    return m_rain3h;
 }
 
-QDateTime WeatherData::qDateTime() const
+double WeatherData::snow3h() const
 {
-    return m_qDateTime;
-}
-
-QString WeatherData::city() const
-{
-    return m_city;
-}
-
-QString WeatherData::weatherMain() const
-{
-    return m_weatherMain;
-}
-
-QString WeatherData::weatherDescription() const
-{
-    return m_weatherDescription;
-}
-
-QString WeatherData::weatherIcon() const
-{
-    return m_weatherIcon;
-}
-
-double WeatherData::temperature() const
-{
-    return m_temperature;
-}
-
-double WeatherData::minTemperature() const
-{
-    return m_minTemperature;
-}
-
-double WeatherData::maxTemperature() const
-{
-    return m_maxTemperature;
+    return m_snow3h;
 }
 
 double WeatherData::windSpeed() const
@@ -153,25 +83,61 @@ double WeatherData::windSpeed() const
     return m_windSpeed;
 }
 
-double WeatherData::snow() const
+double WeatherData::mainTempMax() const
 {
-    return m_snow;
+    return m_mainTempMax;
 }
 
-int WeatherData::humidity() const
+double WeatherData::mainTempMin() const
 {
-    return m_humidity;
+    return m_mainTempMin;
 }
 
-int WeatherData::cloudiness() const
+double WeatherData::mainTemp() const
 {
-    return m_cloudiness;
+    return m_mainTemp;
+}
+
+QString WeatherData::weatherIcon() const
+{
+    return m_weatherIcon;
+}
+
+QString WeatherData::weatherDescription() const
+{
+    return m_weatherDescription;
+}
+
+QString WeatherData::weatherMain() const
+{
+    return m_weatherMain;
 }
 
 QString WeatherData::weatherId() const
 {
     return m_weatherId;
 }
+
+QString WeatherData::cityName() const
+{
+    return m_cityName;
+}
+
+QDateTime WeatherData::qDateTime() const
+{
+    return m_qDateTime;
+}
+
+int WeatherData::dt() const
+{
+    return m_dt;
+}
+
+bool WeatherData::isCurrentWeather() const
+{
+    return m_isCurrentWeather;
+}
+
 
 
 

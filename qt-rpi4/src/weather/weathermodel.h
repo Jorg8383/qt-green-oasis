@@ -14,14 +14,17 @@ public:
     ~WeatherModel(); // Deconstructor
 
     enum Roles {
-        CityRole = Qt::UserRole + 1,
+        CityNameRole = Qt::UserRole + 1,
         WeatherDescriptionRole,
         WeatherMainRole,
+        WeatherIconRole,
+        TemperatureRole,
         MinTemperatureRole,
         MaxTemperatureRole,
-        HumidityRole,
         WindSpeedRole,
-        WeatherIconRole
+        Rain3hRole,
+        Snow3hRole,
+        PopRole
         // Add other roles as needed
     };
 

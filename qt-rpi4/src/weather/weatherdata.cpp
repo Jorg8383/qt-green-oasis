@@ -59,11 +59,11 @@ void WeatherData::extractData(const QJsonObject &data)
     // Extract "pop" properties
     if (data.contains("pop"))
     {
-        m_pop = data["pop"].toInt();
+        m_pop = data["pop"].toDouble();
     }
 }
 
-int WeatherData::pop() const
+double WeatherData::pop() const
 {
     return m_pop;
 }

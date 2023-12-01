@@ -32,7 +32,7 @@ public:
     double windSpeed() const;
     double snow3h() const;
     double rain3h() const;
-    int pop() const;
+    double pop() const;
 
 signals:
 
@@ -53,7 +53,7 @@ private:
     double m_windSpeed; // Wind speed [m/s]
     double m_snow3h; // Snow volume for the last 3 hours [mm]
     double m_rain3h; // Rain volume for the last 3 hours [mm]
-    int m_pop; // Probability of precipitation [%]
+    double m_pop; // Probability of precipitation [%]
 
 };
 

@@ -18,8 +18,10 @@ signals:
 
 private slots:
     // Define test functions
-    void testConstructor();
-    void testConstructor_data();
+    void testConstructorWithAllData();
+    void testConstructorWithAllData_data();
+    void testConstructorWithoutSnowData();
+    void testConstructorWithoutSnowData_data();
     void testProperties();
     void testProperties_data();
 
@@ -29,6 +31,10 @@ private slots:
     void cleanupTestCase(); // Will be called after the last test function was executed
     void init(); // Will be called after the last test function was executed
     void cleanup(); // Will be called after the last test function was executed
+
+private:
+    QDateTime m_qDateTime;
+    const quint64 m_timestampMillis = 1701421200;
 
 };
 

@@ -77,7 +77,7 @@ void WeatherDataTest::testConstructorWithAllData_data()
     testData.insert("main", mainObject);
     QJsonArray weatherArray;
     QJsonObject weatherObject;
-    weatherObject.insert("id", 500);
+    weatherObject.insert("id", "500");
     weatherObject.insert("main", "Rain");
     weatherObject.insert("description", "light rain");
     weatherObject.insert("icon", "10d");
@@ -87,10 +87,10 @@ void WeatherDataTest::testConstructorWithAllData_data()
     windObject.insert("speed", 1.97);
     testData.insert("wind", windObject);
     QJsonObject rainObject;
-    rainObject.insert("3h", 0.57);
+    rainObject.insert("3h", 0.52);
     testData.insert("rain", rainObject);
     QJsonObject snowObject;
-    snowObject.insert("3h", 0.52);
+    snowObject.insert("3h", 0.57);
     testData.insert("snow", snowObject);
     testData.insert("pop", 0.33);
 

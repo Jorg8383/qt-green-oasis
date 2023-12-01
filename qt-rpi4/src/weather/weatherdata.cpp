@@ -28,6 +28,7 @@ void WeatherData::extractData(const QJsonObject &data)
     if (data.contains("dt"))
     {
         m_dt = data["dt"].toInt();
+        m_qDateTime = QDateTime::fromSecsSinceEpoch(m_dt);
     }
 
     // Extract "main" properties
@@ -44,6 +45,7 @@ void WeatherData::extractData(const QJsonObject &data)
     {
         QJsonArray weatherArray = data["weather"].toArray();
         QJsonObject weatherObject = weatherArray.at(0).toObject();
+        m_weatherId = weatherObject["id"].toString();
         m_weatherMain = weatherObject["main"].toString();
         m_weatherDescription = weatherObject["description"].toString();
         m_weatherIcon = weatherObject["icon"].toString();
@@ -60,6 +62,20 @@ void WeatherData::extractData(const QJsonObject &data)
     if (data.contains("pop"))
     {
         m_pop = data["pop"].toDouble();
+    }
+
+    // Extract "rain" properties
+    if (data.contains("rain"))
+    {
+        QJsonObject rainObject = data["rain"].toObject();
+        m_rain3h = rainObject["3h"].toDouble();
+    }
+
+    // Extract "snow" properties
+    if (data.contains("snow"))
+    {
+        QJsonObject snowObject = data["snow"].toObject();
+        m_snow3h = snowObject["3h"].toDouble();
     }
 }
 

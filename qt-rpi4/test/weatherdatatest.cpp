@@ -94,8 +94,6 @@ void WeatherDataTest::testConstructorWithAllData_data()
     testData.insert("snow", snowObject);
     testData.insert("pop", 0.33);
 
-    qInfo() << testData;
-
     // Add test case with: isCurrentWeather == true
     QTest::newRow("Test case #1") << testData << true << 1701421200 << m_qDateTime
                                       << "London" << "500" << "Rain" << "light rain" << "10d"
@@ -107,23 +105,87 @@ void WeatherDataTest::testConstructorWithAllData_data()
 
 }
 
-void WeatherDataTest::testConstructorWithoutSnowData()
+void WeatherDataTest::testConstructorWithDataMissing()
 {
+    // Fetch the elements of the data set
+    QFETCH(QJsonObject, data);
+    QFETCH(bool, isCurrentWeather);
+    QFETCH(int, dt);
+    QFETCH(QDateTime, qDateTime);
+    QFETCH(QString, cityName);
+    QFETCH(QString, weatherId);
+    QFETCH(QString, weatherMain);
+    QFETCH(QString, weatherDescription);
+    QFETCH(QString, weatherIcon);
+    QFETCH(double, mainTemp);
+    QFETCH(double, mainTempMin);
+    QFETCH(double, mainTempMax);
+    QFETCH(double, windSpeed);
+    QFETCH(double, pop);
+
+    // Create a WeatherData object
+    WeatherData weatherData("TestWeatherAllData", data, cityName, isCurrentWeather);
+
+    // Verify the data extraction in the constructor
+    QCOMPARE(weatherData.dt(), dt);
+    QCOMPARE(weatherData.isCurrentWeather(), isCurrentWeather);
+    QCOMPARE(weatherData.qDateTime(), qDateTime);
+    QCOMPARE(weatherData.cityName(), cityName);
+    QCOMPARE(weatherData.weatherId(), weatherId);
+    QCOMPARE(weatherData.weatherMain(), weatherMain);
+    QCOMPARE(weatherData.weatherDescription(), weatherDescription);
+    QCOMPARE(weatherData.weatherIcon(), weatherIcon);
+    QCOMPARE(weatherData.mainTemp(), mainTemp);
+    QCOMPARE(weatherData.mainTempMin(), mainTempMin);
+    QCOMPARE(weatherData.mainTempMax(), mainTempMax);
+    QCOMPARE(weatherData.windSpeed(), windSpeed);
+    QCOMPARE(weatherData.pop(), pop);
 
 }
 
-void WeatherDataTest::testConstructorWithoutSnowData_data()
+void WeatherDataTest::testConstructorWithDataMissing_data()
 {
+    // Create a test table for this test case
+    QTest::addColumn<QJsonObject>("data");
+    QTest::addColumn<bool>("isCurrentWeather");
+    QTest::addColumn<int>("dt");
+    QTest::addColumn<QDateTime>("qDateTime");
+    QTest::addColumn<QString>("cityName");
+    QTest::addColumn<QString>("weatherId");
+    QTest::addColumn<QString>("weatherMain");
+    QTest::addColumn<QString>("weatherDescription");
+    QTest::addColumn<QString>("weatherIcon");
+    QTest::addColumn<double>("mainTemp");
+    QTest::addColumn<double>("mainTempMin");
+    QTest::addColumn<double>("mainTempMax");
+    QTest::addColumn<double>("windSpeed");
+    QTest::addColumn<double>("pop");
 
-}
+    // Prepare the JSON test data for this test case, where "snow" and "rain" data is missing
+    QJsonObject testData;
+    testData.insert("dt", 1701421200);
+    QJsonObject mainObject;
+    mainObject.insert("temp", 30.3);
+    mainObject.insert("temp_min", 28.8);
+    mainObject.insert("temp_max", 33.4);
+    testData.insert("main", mainObject);
+    QJsonArray weatherArray;
+    QJsonObject weatherObject;
+    weatherObject.insert("id", "500");
+    weatherObject.insert("main", "dry");
+    weatherObject.insert("description", "blue sky");
+    weatherObject.insert("icon", "15d");
+    weatherArray.append(weatherObject);
+    testData.insert("weather", weatherArray);
+    QJsonObject windObject;
+    windObject.insert("speed", 2.97);
+    testData.insert("wind", windObject);
+    testData.insert("pop", 0.0);
 
-void WeatherDataTest::testProperties()
-{
-
-}
-
-void WeatherDataTest::testProperties_data()
-{
+    // Add test case
+    QTest::newRow("Test case #1") << testData << true << 1701421200 << m_qDateTime
+                                  << "Munich" << "500" << "dry" << "blue sky" << "15d"
+                                  << 30.3 << 28.8 << 33.4 << 2.97 << 0.0;
 
 }
 

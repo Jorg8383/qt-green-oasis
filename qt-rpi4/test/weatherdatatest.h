@@ -20,10 +20,8 @@ private slots:
     // Define test functions
     void testConstructorWithAllData();
     void testConstructorWithAllData_data();
-    void testConstructorWithoutSnowData();
-    void testConstructorWithoutSnowData_data();
-    void testProperties();
-    void testProperties_data();
+    void testConstructorWithDataMissing();
+    void testConstructorWithDataMissing_data();
 
     // Define methodes that are automatically invoked by the test framework
     void initTestCase(); // Will be called before the first test function is executed

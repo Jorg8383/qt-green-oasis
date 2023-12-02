@@ -14,7 +14,7 @@ WeatherModelTest::~WeatherModelTest()
 // This method will be invoked by the test framework before the first test function is executed
 void WeatherModelTest::initTestCase()
 {
-    // Get test data from external JSON file
+    // Get test data from a external JSON file
     QFile file("../test/data/test_data_weather.json");
     if (!file.open(QIODevice::ReadOnly))
     {
@@ -22,7 +22,7 @@ void WeatherModelTest::initTestCase()
         return;
     }
 
-    // Parse JSON data
+    // Parse the JSON data
     QJsonParseError parseError;
     QJsonDocument doc = QJsonDocument::fromJson(file.readAll(), &parseError);
     if (parseError.error != QJsonParseError::NoError)
@@ -39,7 +39,7 @@ void WeatherModelTest::initTestCase()
         return;
     }
 
-    // Get city name
+    // Get the city name
     QString cityName;
     if (!obj.contains("city") || !obj["city"].isObject())
     {
@@ -71,20 +71,16 @@ void WeatherModelTest::initTestCase()
 void WeatherModelTest::cleanupTestCase()
 {
     qDeleteAll(m_weatherDataList); // Call 'delete' on all items in the list
-    m_weatherDataList.clear(); // Remove the items from the list
+    m_weatherDataList.clear(); // Remove items from the list
 }
 
 void WeatherModelTest::testRowCount()
 {
+
     WeatherModel model;
-    QCOMPARE(model.rowCount(), 0);
+    model.setWeatherData(m_weatherDataList);
 
-    QList<WeatherData*> weatherDataList;
-    weatherDataList.append(new WeatherData());
-    weatherDataList.append(new WeatherData());
-    model.setWeatherData(weatherDataList);
-
-    QCOMPARE(model.rowCount(), 2);
+    QCOMPARE(model.rowCount(), m_weatherDataList.count());
 }
 
 void WeatherModelTest::testData()

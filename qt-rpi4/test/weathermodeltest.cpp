@@ -3,19 +3,20 @@
 WeatherModelTest::WeatherModelTest(QObject *parent)
     : QObject{parent}
 {
-
+    setObjectName("WeatherModelTest");
 }
 
 WeatherModelTest::~WeatherModelTest()
 {
-    qDeleteAll(m_weatherDataList); // Call 'delete' on all items in the list
+
 }
 
 // This method will be invoked by the test framework before the first test function is executed
 void WeatherModelTest::initTestCase()
 {
+
     // Get test data from a external JSON file
-    QFile file("../test/data/test_data_weather.json");
+    QFile file("../../qt-rpi4/test/data/test_data_weather.json");
     if (!file.open(QIODevice::ReadOnly))
     {
         qWarning() << this << "Couldn't open file: " << file.fileName() << " Error: " << file.errorString();
@@ -65,41 +66,48 @@ void WeatherModelTest::initTestCase()
         m_weatherDataList.append(weatherData);
         isCurrentWeather = false;
     }
+
+    // Pass the created list to the model which will take ownership for all WeatherData objects
+    m_model.setWeatherData(m_weatherDataList);
+
 }
 
 // This method will be invoked by the test framework after the last test function was executed
 void WeatherModelTest::cleanupTestCase()
 {
-    qDeleteAll(m_weatherDataList); // Call 'delete' on all items in the list
+    /*
+     * Note: Don't use qDeleteAll(m_weatherDataList) here!!!
+     * After invoking weatherModel.setWeatherData(QList<WeatherData*> newData),
+     * the model takes ownership of these weather data objects and deletes them
+     * when the model gets destyoyed (deconstructed). Here, in this cleanupTestCase()
+     * method we only remove these items from the list but we DO NOT delete them.
+     * Double deletion of objects can cause unpredicted behaviour and crash the
+     * application!
+    */
     m_weatherDataList.clear(); // Remove items from the list
 }
 
 void WeatherModelTest::testRowCount()
 {
-
-    WeatherModel model;
-    model.setWeatherData(m_weatherDataList);
-
-    QCOMPARE(model.rowCount(), m_weatherDataList.count());
+    QCOMPARE(m_model.rowCount(), m_weatherDataList.count());
 }
+
 
 void WeatherModelTest::testData()
 {
-    WeatherModel model;
-    model.setWeatherData(m_weatherDataList);
-
     for (int i = 0; i < m_weatherDataList.count(); i++)
     {
-        QCOMPARE(model.data(model.index(i), WeatherModel::CityNameRole).toString(), m_weatherDataList[i]->cityName());
-        QCOMPARE(model.data(model.index(i), WeatherModel::WeatherDescriptionRole).toString(), m_weatherDataList[i]->weatherDescription());
-        QCOMPARE(model.data(model.index(i), WeatherModel::WeatherMainRole).toString(), m_weatherDataList[i]->weatherMain());
-        QCOMPARE(model.data(model.index(i), WeatherModel::WeatherIconRole).toString(), m_weatherDataList[i]->weatherIcon());
-        QCOMPARE(model.data(model.index(i), WeatherModel::TemperatureRole).toDouble(), m_weatherDataList[i]->mainTemp());
-        QCOMPARE(model.data(model.index(i), WeatherModel::MinTemperatureRole).toDouble(), m_weatherDataList[i]->mainTempMin());
-        QCOMPARE(model.data(model.index(i), WeatherModel::MaxTemperatureRole).toDouble(), m_weatherDataList[i]->mainTempMax());
-        QCOMPARE(model.data(model.index(i), WeatherModel::WindSpeedRole).toDouble(), m_weatherDataList[i]->windSpeed());
-        QCOMPARE(model.data(model.index(i), WeatherModel::Rain3hRole).toDouble(), m_weatherDataList[i]->rain3h());
-        QCOMPARE(model.data(model.index(i), WeatherModel::Snow3hRole).toDouble(), m_weatherDataList[i]->snow3h());
-        QCOMPARE(model.data(model.index(i), WeatherModel::PopRole).toDouble(), m_weatherDataList[i]->pop());
+        QCOMPARE(m_model.data(m_model.index(i), WeatherModel::WeatherMainRole).toString(), m_weatherDataList[i]->weatherMain());
+        QCOMPARE(m_model.data(m_model.index(i), WeatherModel::WeatherDescriptionRole).toString(), m_weatherDataList[i]->weatherDescription());
+        QCOMPARE(m_model.data(m_model.index(i), WeatherModel::CityNameRole).toString(), m_weatherDataList[i]->cityName());
+        QCOMPARE(m_model.data(m_model.index(i), WeatherModel::WeatherIconRole).toString(), m_weatherDataList[i]->weatherIcon());
+        QCOMPARE(m_model.data(m_model.index(i), WeatherModel::TemperatureRole).toDouble(), m_weatherDataList[i]->mainTemp());
+        QCOMPARE(m_model.data(m_model.index(i), WeatherModel::MinTemperatureRole).toDouble(), m_weatherDataList[i]->mainTempMin());
+        QCOMPARE(m_model.data(m_model.index(i), WeatherModel::MaxTemperatureRole).toDouble(), m_weatherDataList[i]->mainTempMax());
+        QCOMPARE(m_model.data(m_model.index(i), WeatherModel::WindSpeedRole).toDouble(), m_weatherDataList[i]->windSpeed());
+        QCOMPARE(m_model.data(m_model.index(i), WeatherModel::Rain3hRole).toDouble(), m_weatherDataList[i]->rain3h());
+        QCOMPARE(m_model.data(m_model.index(i), WeatherModel::Snow3hRole).toDouble(), m_weatherDataList[i]->snow3h());
+        QCOMPARE(m_model.data(m_model.index(i), WeatherModel::PopRole).toDouble(), m_weatherDataList[i]->pop());
     }
 }
+

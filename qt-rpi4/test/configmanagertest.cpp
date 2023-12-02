@@ -3,8 +3,7 @@
 ConfigManagerTest::ConfigManagerTest(QObject *parent)
     : QObject{parent}
 {
-    setObjectName("TestConfigManager");
-    //    qInfo() << "Constructed: " << this;
+    setObjectName("ConfigManagerTest");
 }
 
 void ConfigManagerTest::initTestCase()

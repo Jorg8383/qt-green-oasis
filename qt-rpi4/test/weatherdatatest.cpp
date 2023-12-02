@@ -3,7 +3,7 @@
 WeatherDataTest::WeatherDataTest(QObject *parent)
     : QObject{parent}
 {
-
+    setObjectName("WeatherDataTest");
 }
 
 void WeatherDataTest::testConstructorWithAllData()

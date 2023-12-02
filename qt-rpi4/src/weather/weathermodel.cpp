@@ -8,8 +8,10 @@ WeatherModel::WeatherModel(QObject *parent)
 
 WeatherModel::~WeatherModel()
 {
-    // Delete all data entries
-    qDeleteAll(m_data.begin(), m_data.end());
+    if (m_data.count() != 0)
+    {
+        qDeleteAll(m_data);
+    }
 }
 
 int WeatherModel::rowCount(const QModelIndex &parent) const
@@ -73,9 +75,6 @@ QHash<int, QByteArray> WeatherModel::roleNames() const
 void WeatherModel::setWeatherData(QList<WeatherData *> newData)
 {
     beginResetModel(); // Any views attached to this model will be reset as well
-
-    // Delete all old data entries
-    qDeleteAll(m_data.begin(), m_data.end());
 
     // Replace the old data with new data
     m_data = newData;

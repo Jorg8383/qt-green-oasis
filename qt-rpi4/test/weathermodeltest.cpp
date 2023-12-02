@@ -6,6 +6,74 @@ WeatherModelTest::WeatherModelTest(QObject *parent)
 
 }
 
+WeatherModelTest::~WeatherModelTest()
+{
+    qDeleteAll(m_weatherDataList); // Call 'delete' on all items in the list
+}
+
+// This method will be invoked by the test framework before the first test function is executed
+void WeatherModelTest::initTestCase()
+{
+    // Get test data from external JSON file
+    QFile file("../test/data/test_data_weather.json");
+    if (!file.open(QIODevice::ReadOnly))
+    {
+        qWarning() << this << "Couldn't open file: " << file.fileName() << " Error: " << file.errorString();
+        return;
+    }
+
+    // Parse JSON data
+    QJsonParseError parseError;
+    QJsonDocument doc = QJsonDocument::fromJson(file.readAll(), &parseError);
+    if (parseError.error != QJsonParseError::NoError)
+    {
+        qWarning() << this << "Failed to parse JSON: " << parseError.errorString();
+        return;
+    }
+
+    // Check whether the 'list' array exists
+    QJsonObject obj = doc.object();
+    if (!obj.contains("list") || !obj["list"].isArray())
+    {
+        qWarning() << this << "JSON does not contain a 'list' array!";
+        return;
+    }
+
+    // Get city name
+    QString cityName;
+    if (!obj.contains("city") || !obj["city"].isObject())
+    {
+        qWarning() << this << "JSON does not contain a 'city' object!";
+        return;
+    }
+    else
+    {
+        QJsonObject cityObject = obj["city"].toObject();
+        cityName = cityObject["name"].toString();
+    }
+
+    // Create WeatherData objects and populate them with the retrieved data
+    QJsonArray list = obj["list"].toArray();
+    bool isCurrentWeather = true;
+    for (const QJsonValue& item : list)
+    {
+        // Convert the item to a object and use date & time as the object name
+        QJsonObject dataItem = item.toObject();
+        QString dataItemName = dataItem["dt_txt"].toString();
+        // Create a new weather data object and append it to the weather data list
+        WeatherData* weatherData = new WeatherData(dataItemName, dataItem, cityName, isCurrentWeather);
+        m_weatherDataList.append(weatherData);
+        isCurrentWeather = false;
+    }
+}
+
+// This method will be invoked by the test framework after the last test function was executed
+void WeatherModelTest::cleanupTestCase()
+{
+    qDeleteAll(m_weatherDataList); // Call 'delete' on all items in the list
+    m_weatherDataList.clear(); // Remove the items from the list
+}
+
 void WeatherModelTest::testRowCount()
 {
     WeatherModel model;

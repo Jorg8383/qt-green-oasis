@@ -2,7 +2,14 @@
 #define WEATHERMODELTEST_H
 
 #include <QObject>
+#include <QDebug>
 #include <QTest>
+#include <QFile>
+#include <QJsonArray>
+#include <QJsonObject>
+#include <QJsonValue>
+#include <QJsonDocument>
+#include <QJsonParseError>
 #include <weatherdata.h>
 #include <weathermodel.h>
 
@@ -11,12 +18,19 @@ class WeatherModelTest : public QObject
     Q_OBJECT
 public:
     explicit WeatherModelTest(QObject *parent = nullptr);
+    ~WeatherModelTest(); // Deconstructor
 
 signals:
 
-private slots:
+private slots:    
+    void initTestCase(); // Will be called before the first test function is executed
+    void cleanupTestCase();
+
     void testRowCount();
     void testData();
+
+private:
+    QList<WeatherData*> m_weatherDataList;
 };
 
 #endif // WEATHERMODELTEST_H

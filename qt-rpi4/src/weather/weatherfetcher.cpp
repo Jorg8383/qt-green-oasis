@@ -17,7 +17,7 @@ void WeatherFetcher::getData(const double latitude, const double longitude)
 {
     qDebug() << this << " - Firing off GET request to openweather...";
     // api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
-    QString apiString = QString("https://api.openweathermap.org/data/2.5/forecast?lat=%1&lon=%2&appid=%3")
+    QString apiString = QString("https://api.openweathermap.org/data/2.5/forecast?lat=%1&lon=%2&appid=%3&units=metric")
                             .arg(latitude).arg(longitude).arg(m_apiKey);
     qDebug() << this << " - Created openeweather API string: " << apiString;
     QUrl apiUrl(apiString);

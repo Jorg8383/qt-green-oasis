@@ -38,6 +38,8 @@ void WeatherData::extractData(const QJsonObject &data)
         m_mainTemp = mainObject["temp"].toDouble();
         m_mainTempMin = mainObject["temp_min"].toDouble();
         m_mainTempMax = mainObject["temp_max"].toDouble();
+
+//        qDebug() << this << "Write m_mainTempMax: " << m_mainTempMax;
     }
 
     // Extract "weather" properties

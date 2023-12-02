@@ -96,11 +96,13 @@ void WeatherModelTest::testRowCount()
 
 void WeatherModelTest::testData()
 {
+
     for (int i = 0; i < m_weatherDataList.count(); i++)
     {
         QCOMPARE(m_model->data(m_model->index(i), WeatherModel::WeatherMainRole).toString(), m_weatherDataList[i]->weatherMain());
         QCOMPARE(m_model->data(m_model->index(i), WeatherModel::WeatherDescriptionRole).toString(), m_weatherDataList[i]->weatherDescription());
         QCOMPARE(m_model->data(m_model->index(i), WeatherModel::CityNameRole).toString(), m_weatherDataList[i]->cityName());
+        QCOMPARE(m_model->data(m_model->index(i), WeatherModel::IsCurrentWeatherRole).toBool(), m_weatherDataList[i]->isCurrentWeather());
         QCOMPARE(m_model->data(m_model->index(i), WeatherModel::WeatherIconRole).toString(), m_weatherDataList[i]->weatherIcon());
         QCOMPARE(m_model->data(m_model->index(i), WeatherModel::TemperatureRole).toDouble(), m_weatherDataList[i]->mainTemp());
         QCOMPARE(m_model->data(m_model->index(i), WeatherModel::MinTemperatureRole).toDouble(), m_weatherDataList[i]->mainTempMin());

@@ -32,7 +32,7 @@ private slots:
 
 private:
     QList<WeatherData*> m_weatherDataList;
-    WeatherModel m_model;
+    WeatherModel* m_model;
 };
 
 #endif // WEATHERMODELTEST_H

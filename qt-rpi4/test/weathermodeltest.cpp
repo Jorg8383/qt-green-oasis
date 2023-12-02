@@ -4,11 +4,12 @@ WeatherModelTest::WeatherModelTest(QObject *parent)
     : QObject{parent}
 {
     setObjectName("WeatherModelTest");
+    m_model = new WeatherModel();
 }
 
 WeatherModelTest::~WeatherModelTest()
 {
-
+    delete m_model;
 }
 
 // This method will be invoked by the test framework before the first test function is executed
@@ -68,7 +69,7 @@ void WeatherModelTest::initTestCase()
     }
 
     // Pass the created list to the model which will take ownership for all WeatherData objects
-    m_model.setWeatherData(m_weatherDataList);
+    m_model->setWeatherData(m_weatherDataList);
 
 }
 
@@ -89,7 +90,7 @@ void WeatherModelTest::cleanupTestCase()
 
 void WeatherModelTest::testRowCount()
 {
-    QCOMPARE(m_model.rowCount(), m_weatherDataList.count());
+    QCOMPARE(m_model->rowCount(), m_weatherDataList.count());
 }
 
 
@@ -97,17 +98,17 @@ void WeatherModelTest::testData()
 {
     for (int i = 0; i < m_weatherDataList.count(); i++)
     {
-        QCOMPARE(m_model.data(m_model.index(i), WeatherModel::WeatherMainRole).toString(), m_weatherDataList[i]->weatherMain());
-        QCOMPARE(m_model.data(m_model.index(i), WeatherModel::WeatherDescriptionRole).toString(), m_weatherDataList[i]->weatherDescription());
-        QCOMPARE(m_model.data(m_model.index(i), WeatherModel::CityNameRole).toString(), m_weatherDataList[i]->cityName());
-        QCOMPARE(m_model.data(m_model.index(i), WeatherModel::WeatherIconRole).toString(), m_weatherDataList[i]->weatherIcon());
-        QCOMPARE(m_model.data(m_model.index(i), WeatherModel::TemperatureRole).toDouble(), m_weatherDataList[i]->mainTemp());
-        QCOMPARE(m_model.data(m_model.index(i), WeatherModel::MinTemperatureRole).toDouble(), m_weatherDataList[i]->mainTempMin());
-        QCOMPARE(m_model.data(m_model.index(i), WeatherModel::MaxTemperatureRole).toDouble(), m_weatherDataList[i]->mainTempMax());
-        QCOMPARE(m_model.data(m_model.index(i), WeatherModel::WindSpeedRole).toDouble(), m_weatherDataList[i]->windSpeed());
-        QCOMPARE(m_model.data(m_model.index(i), WeatherModel::Rain3hRole).toDouble(), m_weatherDataList[i]->rain3h());
-        QCOMPARE(m_model.data(m_model.index(i), WeatherModel::Snow3hRole).toDouble(), m_weatherDataList[i]->snow3h());
-        QCOMPARE(m_model.data(m_model.index(i), WeatherModel::PopRole).toDouble(), m_weatherDataList[i]->pop());
+        QCOMPARE(m_model->data(m_model->index(i), WeatherModel::WeatherMainRole).toString(), m_weatherDataList[i]->weatherMain());
+        QCOMPARE(m_model->data(m_model->index(i), WeatherModel::WeatherDescriptionRole).toString(), m_weatherDataList[i]->weatherDescription());
+        QCOMPARE(m_model->data(m_model->index(i), WeatherModel::CityNameRole).toString(), m_weatherDataList[i]->cityName());
+        QCOMPARE(m_model->data(m_model->index(i), WeatherModel::WeatherIconRole).toString(), m_weatherDataList[i]->weatherIcon());
+        QCOMPARE(m_model->data(m_model->index(i), WeatherModel::TemperatureRole).toDouble(), m_weatherDataList[i]->mainTemp());
+        QCOMPARE(m_model->data(m_model->index(i), WeatherModel::MinTemperatureRole).toDouble(), m_weatherDataList[i]->mainTempMin());
+        QCOMPARE(m_model->data(m_model->index(i), WeatherModel::MaxTemperatureRole).toDouble(), m_weatherDataList[i]->mainTempMax());
+        QCOMPARE(m_model->data(m_model->index(i), WeatherModel::WindSpeedRole).toDouble(), m_weatherDataList[i]->windSpeed());
+        QCOMPARE(m_model->data(m_model->index(i), WeatherModel::Rain3hRole).toDouble(), m_weatherDataList[i]->rain3h());
+        QCOMPARE(m_model->data(m_model->index(i), WeatherModel::Snow3hRole).toDouble(), m_weatherDataList[i]->snow3h());
+        QCOMPARE(m_model->data(m_model->index(i), WeatherModel::PopRole).toDouble(), m_weatherDataList[i]->pop());
     }
 }
 

@@ -33,6 +33,7 @@ private slots:
 private:
     QList<WeatherData*> m_weatherDataList;
     WeatherModel* m_model;
+    void populateWeatherDataList(QJsonObject obj, QString cityName);
 };
 
 #endif // WEATHERMODELTEST_H

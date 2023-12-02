@@ -13,6 +13,22 @@ WeatherModelTest::~WeatherModelTest()
 }
 
 // This method will be invoked by the test framework before the first test function is executed
+void WeatherModelTest::populateWeatherDataList(QJsonObject obj, QString cityName)
+{
+    QJsonArray list = obj["list"].toArray();
+    bool isCurrentWeather = true;
+    for (const QJsonValue& item : list)
+    {
+        // Convert the item to a object and use date & time as the object name
+        QJsonObject dataItem = item.toObject();
+        QString dataItemName = dataItem["dt_txt"].toString();
+        // Create a new weather data object and append it to the weather data list
+        WeatherData* weatherData = new WeatherData(dataItemName, dataItem, cityName, isCurrentWeather);
+        m_weatherDataList.append(weatherData);
+        isCurrentWeather = false;
+    }
+}
+
 void WeatherModelTest::initTestCase()
 {
 
@@ -55,18 +71,7 @@ void WeatherModelTest::initTestCase()
     }
 
     // Create WeatherData objects and populate them with the retrieved data
-    QJsonArray list = obj["list"].toArray();
-    bool isCurrentWeather = true;
-    for (const QJsonValue& item : list)
-    {
-        // Convert the item to a object and use date & time as the object name
-        QJsonObject dataItem = item.toObject();
-        QString dataItemName = dataItem["dt_txt"].toString();
-        // Create a new weather data object and append it to the weather data list
-        WeatherData* weatherData = new WeatherData(dataItemName, dataItem, cityName, isCurrentWeather);
-        m_weatherDataList.append(weatherData);
-        isCurrentWeather = false;
-    }
+    populateWeatherDataList(obj, cityName);
 
     // Pass the created list to the model which will take ownership for all WeatherData objects
     m_model->setWeatherData(m_weatherDataList);
@@ -96,7 +101,6 @@ void WeatherModelTest::testRowCount()
 
 void WeatherModelTest::testData()
 {
-
     for (int i = 0; i < m_weatherDataList.count(); i++)
     {
         QCOMPARE(m_model->data(m_model->index(i), WeatherModel::WeatherMainRole).toString(), m_weatherDataList[i]->weatherMain());

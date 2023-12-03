@@ -1,10 +1,10 @@
-find_package(Qt6 6.4 REQUIRED COMPONENTS Core Quick)
+find_package(Qt6 6.4 REQUIRED COMPONENTS Core Quick Qml)
 
 add_executable(app_qt_rpi4
     main.cpp
 )
 
-#qt_policy(QTP0001 NEW)
+qt_policy(SET QTP0001 NEW)
 
 qt_add_qml_module(app_qt_rpi4
     URI qt-rpi4
@@ -13,7 +13,7 @@ qt_add_qml_module(app_qt_rpi4
 )
 
 target_link_libraries(app_qt_rpi4
-    PRIVATE Qt6::Quick rpi4_core_lib rpi4_weather_lib
+    PRIVATE Qt6::Quick Qt6::Qml rpi4_core_lib rpi4_weather_lib
 )
 
 include(GNUInstallDirs)

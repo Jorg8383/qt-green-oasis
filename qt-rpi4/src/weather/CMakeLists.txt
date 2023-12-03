@@ -3,7 +3,8 @@ project(rpi4_weather_lib)
 
 set(CMAKE_AUTOMOC ON)
 
-find_package(Qt6 COMPONENTS Core Network REQUIRED)
+find_package(Qt6 REQUIRED COMPONENTS Core Network)
+
 
 add_library(rpi4_weather_lib STATIC
     weatherdata.h weatherdata.cpp

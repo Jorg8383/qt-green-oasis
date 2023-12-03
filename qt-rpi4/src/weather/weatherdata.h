@@ -10,6 +10,22 @@
 class WeatherData : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(bool isCurrent READ isCurrentWeather NOTIFY dataChanged)
+    Q_PROPERTY(int dt READ dt NOTIFY dataChanged)
+    Q_PROPERTY(QDateTime qdt READ qDateTime NOTIFY dataChanged)
+    Q_PROPERTY(QString cityName READ cityName NOTIFY dataChanged)
+    Q_PROPERTY(QString weatherId READ weatherId NOTIFY dataChanged)
+    Q_PROPERTY(QString weatherMain READ weatherMain NOTIFY dataChanged)
+    Q_PROPERTY(QString weatherDescription READ weatherDescription NOTIFY dataChanged)
+    Q_PROPERTY(QString weatherIcon READ weatherIcon NOTIFY dataChanged)
+    Q_PROPERTY(double mainTemp READ mainTemp NOTIFY dataChanged)
+    Q_PROPERTY(double mainTempMin READ mainTempMin NOTIFY dataChanged)
+    Q_PROPERTY(double mainTempMax READ mainTempMax NOTIFY dataChanged)
+    Q_PROPERTY(double windSpeed READ windSpeed NOTIFY dataChanged)
+    Q_PROPERTY(double snow3h READ snow3h NOTIFY dataChanged)
+    Q_PROPERTY(double rain3h READ rain3h NOTIFY dataChanged)
+    Q_PROPERTY(double pop READ pop NOTIFY dataChanged)
+
 public:
     explicit WeatherData(QString objectName = "WeatherData",
                          const QJsonObject& data = QJsonObject(),
@@ -35,6 +51,7 @@ public:
     double pop() const;
 
 signals:
+    void dataChanged();
 
 private:
     void extractData(const QJsonObject &data);

@@ -10,6 +10,7 @@ qt_add_qml_module(app_qt_rpi4
     URI qt-rpi4
     VERSION 1.0
     QML_FILES Main.qml
+    QML_FILES qml/WeatherScreen.qml
 )
 
 target_link_libraries(app_qt_rpi4

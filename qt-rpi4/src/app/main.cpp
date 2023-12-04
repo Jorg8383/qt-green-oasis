@@ -1,10 +1,16 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-
+#include <QQmlContext>
+#include <weatherdata.h>
+#include <weathermodel.h>
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
+
+    // Register and expose C++ classes to QML
+    qmlRegisterType<WeatherData>("com.weather.weatherdata", 1, 0, "WeatherData");
+    qmlRegisterType<WeatherModel>("com.weather.weathermodel", 1, 0, "WeatherModel");
 
     QQmlApplicationEngine engine;
     // Follow the new URL policy introduced in Qt6.5, where ':/qt/qml/' is the default resource prefix for QML modules.

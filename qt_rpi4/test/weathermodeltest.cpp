@@ -33,7 +33,7 @@ void WeatherModelTest::initTestCase()
 {
 
     // Get test data from a external JSON file
-    QFile file("../../qt-rpi4/test/data/test_data_weather.json");
+    QFile file("../../qt_rpi4/test/data/test_data_weather.json");
     if (!file.open(QIODevice::ReadOnly))
     {
         qWarning() << this << "Couldn't open file: " << file.fileName() << " Error: " << file.errorString();

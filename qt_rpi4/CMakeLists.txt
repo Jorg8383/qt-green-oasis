@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(qt-rpi4 VERSION 0.1 LANGUAGES CXX)
+project(qt_rpi4 VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -16,7 +16,7 @@ add_subdirectory(test)
 # If you are developing for iOS or macOS you should consider setting an
 # explicit, fixed bundle identifier manually though.
 set_target_properties(app_qt_rpi4 PROPERTIES
-#    MACOSX_BUNDLE_GUI_IDENTIFIER com.example.appqt-rpi4
+#    MACOSX_BUNDLE_GUI_IDENTIFIER com.example.appqt_rpi4
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
     MACOSX_BUNDLE TRUE

@@ -1,4 +1,4 @@
-# Green-Oasis - IoT Irrigation System
+# Green-Oasis - An IoT Irrigation System
 
 ## Note
 This project is currently under development and, therefore, incomplete.

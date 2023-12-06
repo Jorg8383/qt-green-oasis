@@ -10,7 +10,7 @@ Two main motivations drive the Green Oasis project. Firstly, it shall provide a 
 
 ### Functionality
 - **Real-time Monitoring and Control:** Monitor and control irrigation devices in real-time through a user-friendly 7" touchscreen interface connected to the Raspberry Pi4 control hub.
-- **Azure IoT Hub:** Facilitate secure communication between the control hub and sensor/actor clients, utilising Device Twins for efficient device configuration and management.
+- **Azure IoT Hub:** Facilitate secure communication between the control hub and sensor/actor clients, utilising IoT Hub Device Twins for efficient device configuration and management.
 - **Dynamic Adjustment of Watering Schedules:** Optimise watering schedules based on real-time weather and forecast data. Moreover, adjust water time up and down based on local temperature and humidity.
 - **Rainfall Detection:** Intelligently stop watering during rainfall to conserve water and promote environmental sustainability.
 - **Separate Irrigation Zones:** Supports the management of multiple irrigation zones independently, allowing for customised watering schedules for different garden areas.
@@ -43,7 +43,7 @@ The Green-Oasis-Pi IoT irrigation system consists of the following components:
 
 3. **Azure IoT Hub:**
    - Facilitates secure communication between the control hub and sensor/actor clients.
-   - Leverages Device Twins for storing, retrieving, and updating device metadata and state information.
+   - Leverages IoT Hub Device Twins for storing, retrieving, and updating device metadata and state information.
 
 4. **Weather Integration:**
    - Utilises real-time weather and forecast data to optimize watering schedules.

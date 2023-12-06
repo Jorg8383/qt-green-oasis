@@ -31,7 +31,7 @@ Two main motivations drive the Green Oasis project. Firstly, it shall provide a 
 
 The Green-Oasis-Pi IoT irrigation system consists of the following components:
 
-![architecture](/doc/green_oasis_architecture.png "Green-Oasis IoT Architecture"){width=75%}
+![architecture](/doc/green_oasis_architecture.png "Green-Oasis IoT Architecture")
 
 1. **Raspberry Pi Control Hub:**
    - Developed using C++17, Qt6.6, and QML.

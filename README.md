@@ -29,7 +29,7 @@ Two main motivations drive the Green Oasis project. Firstly, it shall provide a 
 
 ## System Overview
 
-The Green-Oasis-Pi IoT irrigation system consists of the following components:
+The Green-Oasis IoT irrigation system consists of the following components:
 
 ![architecture](/doc/green_oasis_architecture.png "Green-Oasis IoT Architecture")
 
@@ -41,7 +41,7 @@ The Green-Oasis-Pi IoT irrigation system consists of the following components:
 2. **Sensor/Actor Clients:**
    - Arm Cortex-M4 microcontroller-driven devices.
    - Simulated sensor/actor clients using Python and Docker containers during development.
-   - Real-time monitoring of soil conditions and control of irrigation equipment.
+   - Real-time monitoring of soil conditions, temperature, humidity, and control of irrigation equipment.
 
 3. **Azure IoT Hub:**
    - Facilitates secure communication between the control hub and sensor/actor clients.

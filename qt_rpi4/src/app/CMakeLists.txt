@@ -1,4 +1,4 @@
-find_package(Qt6 6.4 REQUIRED COMPONENTS Core Quick Qml)
+find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml)
 
 add_executable(app_qt_rpi4
     main.cpp
@@ -10,7 +10,6 @@ qt_add_qml_module(app_qt_rpi4
     URI qt_rpi4
     VERSION 1.0
     QML_FILES Main.qml
-    QML_FILES qml/WeatherScreen.qml
 )
 
 target_link_libraries(app_qt_rpi4

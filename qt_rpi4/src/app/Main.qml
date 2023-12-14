@@ -5,8 +5,6 @@ import QtQuick.Window
 import com.weather.weatherdata
 import com.weather.weathermodel
 
-// Import a local QML Document directory
-import "./qml" as Qml
 
 Window {
     id: window
@@ -25,6 +23,5 @@ Window {
         }
     }
 
-    Qml.WeatherScreen{}
 
 }

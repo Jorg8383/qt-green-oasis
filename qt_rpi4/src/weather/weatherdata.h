@@ -6,7 +6,6 @@
 #include <QJsonObject>
 #include <QJsonArray>
 
-
 class WeatherData : public QObject
 {
     Q_OBJECT

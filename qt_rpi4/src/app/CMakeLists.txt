@@ -4,7 +4,7 @@ add_executable(app_qt_rpi4
     main.cpp
 )
 
-qt_policy(SET QTP0001 NEW)
+# qt_policy(SET QTP0001 NEW)
 
 qt_add_qml_module(app_qt_rpi4
     URI qt_rpi4

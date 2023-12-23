@@ -2,10 +2,12 @@ cmake_minimum_required(VERSION 3.16)
 
 project(qt_rpi4 VERSION 0.1 LANGUAGES CXX)
 
+set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_STANDARD 17)
 
 find_package(Qt6 REQUIRED COMPONENTS Core)
-qt_standard_project_setup()
+qt_standard_project_setup(REQUIRES 6.5)
 
 add_subdirectory(src/app)
 add_subdirectory(src/core)

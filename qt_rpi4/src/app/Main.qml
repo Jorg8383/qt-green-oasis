@@ -1,9 +1,8 @@
 import QtQuick
 import QtQuick.Window
 
-// Import C++ modules
-import com.weather.weatherdata
-import com.weather.weathermodel
+// import com.greenoasis.weathermodel
+
 
 
 Window {
@@ -14,8 +13,6 @@ Window {
     title: qsTr("Hello World")
 
     Rectangle {
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.horizontalCenter: parent.horizontalCenter
 
         Text {
             id: name
@@ -23,5 +20,5 @@ Window {
         }
     }
 
-
+    // WeatherModel{}
 }

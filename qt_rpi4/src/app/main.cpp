@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
 
     // Follow the new URL policy introduced in Qt6.5, where ':/qt/qml/' is the default resource prefix for QML modules.
-    const QUrl url(u"qrc:/qt/qml/qt_rpi4/Main.qml"_qs);
+    const QUrl url(u"qrc:/qt/qml/qt_rpi4/qml/Main.qml"_qs);
 
     QStringList importPaths = engine.importPathList();
 

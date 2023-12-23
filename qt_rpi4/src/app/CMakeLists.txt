@@ -6,10 +6,19 @@ add_executable(app_qt_rpi4
 
 # qt_policy(SET QTP0001 NEW)
 
+list(APPEND MODULE_QML_FILES
+    qml/Main.qml
+    qml/WeatherPage.qml
+)
+list(APPEND MODULE_JS_FILES
+
+)
+
 qt_add_qml_module(app_qt_rpi4
     URI qt_rpi4
     VERSION 1.0
-    QML_FILES Main.qml
+    QML_FILES ${MODULE_QML_FILES}
+    # QML_FILES qml/Main.qml
 )
 
 target_link_libraries(app_qt_rpi4

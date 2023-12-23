@@ -1,9 +1,9 @@
 import QtQuick
 import QtQuick.Window
 
-// import com.greenoasis.weathermodel
-
-
+// Import C++ modules into QML
+import com.greenoasis.weathermodel
+import com.greenoasis.weatherdata
 
 Window {
     id: window
@@ -20,5 +20,8 @@ Window {
         }
     }
 
-    // WeatherModel{}
+    WeatherPage{
+        id: weatherPage
+    }
+
 }

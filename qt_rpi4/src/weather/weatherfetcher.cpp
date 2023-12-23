@@ -85,10 +85,14 @@ void WeatherFetcher::extractWeatherInfo(const QJsonDocument &jsonResponse)
         {
             QJsonObject listObject = listValue.toObject();
             QString listItemName = listObject["dt_txt"].toString();
-            WeatherData *weatherItem = new WeatherData(listItemName, listObject, cityName, isCurrentWeather);
+            WeatherData *weatherDataItem = new WeatherData(listItemName, listObject, cityName, isCurrentWeather);
             isCurrentWeather = false;
 
-            weatherItemList.append(weatherItem);
+            // Append each weather data item to the list
+            weatherItemList.append(weatherDataItem);
         }
     }
+
+    // Pass the created weather item list to the weather model
+    m_weatherModel.setWeatherData(weatherItemList);
 }

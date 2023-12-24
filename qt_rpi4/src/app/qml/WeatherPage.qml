@@ -5,59 +5,82 @@ import com.greenoasis.weathermodel
 import com.greenoasis.weatherdata
 
 Item {
-    ListView {
-        model: WeatherModel
-        delegate: Rectangle {
-            width: parent.width
-            height: 100
-            color: index % 2 == 0 ? "lightgray" : "white"
+    id: weatherPage
+    anchors.fill: parent
 
-            Row {
-                anchors.fill: parent
-                spacing: 10
+    WeatherModel {
+        id: weatherModel
+    }
 
-                Image {
-                    source: "images/" + model.weatherIcon + ".png"
-                    width: 50
-                    height: 50
-                    anchors.verticalCenter: parent.verticalCenter
-                }
+    Row {
+        anchors.fill: parent
+        spacing: 10
 
-                Column {
-                    Label {
-                        text: model.cityName
-                        font.pixelSize: 20
-                    }
+        // Current weather information
+        Rectangle {
+            id: currentWeather
+            width: parent.width / 2
+            height: parent.height
+            color: "lightblue"
 
-                    Label {
-                        text: model.weatherMain
-                        font.pixelSize: 16
-                    }
+            ListView {
+                model: weatherModel
+                delegate: Rectangle {
+                    visible: model.isCurrentWeather
+                    width: parent.width
+                    height: visible ? 100 : 0
+                    color: index % 2 == 0 ? "lightgray" : "white"
 
-                    Label {
-                        text: model.weatherDescription
-                        font.pixelSize: 14
-                    }
-                }
+                    Row {
+                        anchors.fill: parent
+                        spacing: 10
 
-                Column {
-                    Label {
-                        text: "Temp: " + model.mainTemp + "°C"
-                        font.pixelSize: 16
-                    }
+                        Image {
+                            source: "images/" + model.weatherIcon + ".png"
+                            width: 50
+                            height: 50
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
 
-                    Label {
-                        text: "Wind: " + model.windSpeed + " m/s"
-                        font.pixelSize: 16
-                    }
+                        Column {
+                            Label {
+                                text: model.cityName
+                                font.pixelSize: 20
+                            }
 
-                    Label {
-                        text: "Rain: " + model.rain3h + " mm"
-                        font.pixelSize: 16
+                            Label {
+                                text: model.weatherMain
+                                font.pixelSize: 16
+                            }
+
+                            Label {
+                                text: model.weatherDescription
+                                font.pixelSize: 14
+                            }
+                        }
+
+                        Column {
+                            Label {
+                                text: "Temp: " + model.mainTemp + "°C"
+                                font.pixelSize: 16
+                            }
+
+                            Label {
+                                text: "Wind: " + model.windSpeed + " m/s"
+                                font.pixelSize: 16
+                            }
+
+                            Label {
+                                text: "Rain: " + model.rain3h + " mm"
+                                font.pixelSize: 16
+                            }
+                        }
                     }
                 }
             }
         }
+
+
     }
 
 

@@ -1,27 +1,36 @@
 import QtQuick
-import QtQuick.Window
+import QtQuick.Controls
 
 // Import C++ modules into QML
 import com.greenoasis.weathermodel
 import com.greenoasis.weatherdata
 
-Window {
+ApplicationWindow {
     id: window
+    visible: true
     width: 800
     height: 480
-    visible: true
-    title: qsTr("Hello World")
+    title: qsTr("Green-Oasis")
 
-    Rectangle {
+    SwipeView {
+        id: swipeView
+        anchors.fill: parent
+        currentIndex: 0
 
-        Text {
-            id: name
-            text: qsTr("Green Oasis Pi")
+        WeatherPage{
+            id: weatherPage
         }
+
+        // Add more pages here...
+
     }
 
-    WeatherPage{
-        id: weatherPage
+    PageIndicator {
+        id: pageIndicator
+        count: swipeView.count
+        currentIndex: swipeView.currentIndex
+        anchors.bottom: swipeView.bottom
+        anchors.horizontalCenter: swipeView.horizontalCenter
     }
 
 }

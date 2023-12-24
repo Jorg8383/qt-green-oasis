@@ -1,41 +1,64 @@
 import QtQuick 2.15
+import QtQuick.Controls
 
 import com.greenoasis.weathermodel
 import com.greenoasis.weatherdata
 
 Item {
     ListView {
-        id: forecastList
-        anchors.right: parent.right
-        width: parent.width / 2
-        height: parent.height
         model: WeatherModel
-        delegate: Item {
-            width: forecastList.width
+        delegate: Rectangle {
+            width: parent.width
             height: 100
+            color: index % 2 == 0 ? "lightgray" : "white"
+
             Row {
+                anchors.fill: parent
+                spacing: 10
+
                 Image {
                     source: "images/" + model.weatherIcon + ".png"
+                    width: 50
+                    height: 50
+                    anchors.verticalCenter: parent.verticalCenter
                 }
+
                 Column {
-                    Text { text: "Temp: " + model.mainTemp }
-                    Text { text: "Min Temp: " + model.mainTempMin }
-                    Text { text: "Max Temp: " + model.mainTempMax }
+                    Label {
+                        text: model.cityName
+                        font.pixelSize: 20
+                    }
+
+                    Label {
+                        text: model.weatherMain
+                        font.pixelSize: 16
+                    }
+
+                    Label {
+                        text: model.weatherDescription
+                        font.pixelSize: 14
+                    }
+                }
+
+                Column {
+                    Label {
+                        text: "Temp: " + model.mainTemp + "°C"
+                        font.pixelSize: 16
+                    }
+
+                    Label {
+                        text: "Wind: " + model.windSpeed + " m/s"
+                        font.pixelSize: 16
+                    }
+
+                    Label {
+                        text: "Rain: " + model.rain3h + " mm"
+                        font.pixelSize: 16
+                    }
                 }
             }
         }
     }
 
-    Column {
-        anchors.left: parent.left
-        width: parent.width / 2
-        height: parent.height
-        Image {
-            id: currentWeatherIcon
-            source: "images/" + WeatherModel.get(0).weatherIcon + ".png"
-        }
-        Text { text: "Current Temp: " + WeatherModel.get(0).mainTemp }
-        Text { text: "Min Temp: " + WeatherModel.get(0).mainTempMin }
-        Text { text: "Max Temp: " + WeatherModel.get(0).mainTempMax }
-    }
+
 }

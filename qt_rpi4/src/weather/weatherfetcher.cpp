@@ -1,7 +1,7 @@
 #include "weatherfetcher.h"
 
 WeatherFetcher::WeatherFetcher(WeatherModel &model, const QString &apiKey, QObject *parent)
-    : QObject{parent}, m_weatherModel{model}, m_apiKey(apiKey)
+    : QObject{parent}, m_weatherModel{model}, m_apiKey{apiKey}
 {
     setObjectName("WeatherFetcher");
     // Create signal and slot connections between this class and the network access manager
@@ -13,7 +13,7 @@ WeatherFetcher::~WeatherFetcher()
 
 }
 
-void WeatherFetcher::getData(const double latitude, const double longitude)
+void WeatherFetcher::requestData(const double latitude, const double longitude)
 {
     qDebug() << this << " - Firing off GET request to openweather...";
     // api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}

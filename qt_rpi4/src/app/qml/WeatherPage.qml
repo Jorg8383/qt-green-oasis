@@ -6,7 +6,6 @@ import com.greenoasis.weatherdata
 
 Item {
     id: weatherPage
-    anchors.fill: parent
 
     WeatherModel {
         id: weatherModel
@@ -19,8 +18,6 @@ Item {
         // Current weather information
         Rectangle {
             id: currentWeather
-            width: parent.width / 2
-            height: parent.height
             color: "lightblue"
 
             ListView {
@@ -83,8 +80,6 @@ Item {
         // Weather forecast
         Rectangle {
             id: forecast
-            width: parent.width / 2
-            height: parent.height
             color: "lightgreen"
 
             ListView {

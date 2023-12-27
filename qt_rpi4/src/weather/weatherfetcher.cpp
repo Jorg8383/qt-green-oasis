@@ -1,7 +1,7 @@
 #include "weatherfetcher.h"
 
-WeatherFetcher::WeatherFetcher(WeatherModel &model, const QString &apiKey, QObject *parent)
-    : QObject{parent}, m_weatherModel{model}, m_apiKey{apiKey}
+WeatherFetcher::WeatherFetcher(QNetworkAccessManager &networkManager, WeatherModel &model, const QString &apiKey, QObject *parent)
+    : QObject{parent}, m_networkManager{networkManager}, m_weatherModel{model}, m_apiKey{apiKey}
 {
     setObjectName("WeatherFetcher");
     // Create signal and slot connections between this class and the network access manager

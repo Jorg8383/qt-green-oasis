@@ -17,7 +17,7 @@ class WeatherFetcher : public QObject
 {
     Q_OBJECT
 public:
-    explicit WeatherFetcher(WeatherModel& model, const QString& apiKey, QObject *parent = nullptr);
+    explicit WeatherFetcher(QNetworkAccessManager& networkManager, WeatherModel& model, const QString& apiKey, QObject *parent = nullptr);
     ~WeatherFetcher(); // Deconstructor
     void requestData(const double latitude, const double longitude);
 
@@ -31,7 +31,7 @@ private slots:
 private:
     void extractWeatherInfo(const QJsonDocument& jsonResponse);
 
-    QNetworkAccessManager m_networkManager;
+    QNetworkAccessManager& m_networkManager;
     WeatherModel& m_weatherModel;
     const QString& m_apiKey;
 };

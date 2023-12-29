@@ -23,6 +23,9 @@ void ConfigManagerTest::initTestCase()
         stream << "logLevel=INFO";
         configFile.close();
     }
+
+    // Set the configuration file for the singleton instance
+    ConfigManager::instance().initialise("temp_config.txt");
 }
 
 void ConfigManagerTest::cleanupTestCase()
@@ -34,19 +37,17 @@ void ConfigManagerTest::cleanupTestCase()
 void ConfigManagerTest::testGetValue()
 {
 
+    QCOMPARE(ConfigManager::instance().getValue("Database/databaseName").toString(), QString("myDatabase"));
+    QCOMPARE(ConfigManager::instance().getValue("Database/databasePassword").toString(), QString("myPassword"));
+    QCOMPARE(ConfigManager::instance().getValue("Server/serverPort").toInt(), 8080);
+    QCOMPARE(ConfigManager::instance().getValue("Database/databaseUser").toString(), QString("myUser"));
+    QCOMPARE(ConfigManager::instance().getValue("Logging/logLevel").toString(), QString("INFO"));
     // Add test cases...
-    ConfigManager configManager("temp_config.txt");
-    QCOMPARE(configManager.getValue("Database/databaseName").toString(), QString("myDatabase"));
-    QCOMPARE(configManager.getValue("Database/databaseUser").toString(), QString("myUser"));
-    QCOMPARE(configManager.getValue("Database/databasePassword").toString(), QString("myPassword"));
-    QCOMPARE(configManager.getValue("Server/serverPort").toInt(), 8080);
-    QCOMPARE(configManager.getValue("Logging/logLevel").toString(), QString("INFO"));
 }
 
 void ConfigManagerTest::testKeyNotFound()
 {
-    ConfigManager configManager("temp_config.txt");
     // Check for the "logLevel" key without providing the section as a prefix
-    QString value = configManager.getValue("logLevel").toString();
+    QString value = ConfigManager::instance().getValue("logLevel").toString();
     QVERIFY(value.isEmpty());
 }

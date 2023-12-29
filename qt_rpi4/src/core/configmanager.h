@@ -12,13 +12,18 @@ class ConfigManager : public QObject
 {
     Q_OBJECT
 public:
-    explicit ConfigManager(const QString &configFileName = "", QObject *parent = nullptr);
+    // Singleton
+    static ConfigManager& instance();
+    void initialise(const QString& configFileName);
 
     QVariant getValue(const QString &key) const;
 
 signals:
 
 private:
+    ConfigManager(); // Private constructor to prevent instantiation
+    ~ConfigManager(); // Private deconstructor
+
     QMap<QString, QVariant> m_configData;
 };
 

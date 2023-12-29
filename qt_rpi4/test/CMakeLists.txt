@@ -11,6 +11,7 @@ add_executable(rpi4_tests
     weatherdatatest.h weatherdatatest.cpp
     weathermodeltest.h weathermodeltest.cpp
     mocknetworkreply.h mocknetworkreply.cpp
+    weatherfetchertest.h weatherfetchertest.cpp
 )
 
 target_link_libraries(rpi4_tests PRIVATE Qt6::Core Qt6::Test Qt6::Network rpi4_core_lib rpi4_weather_lib)

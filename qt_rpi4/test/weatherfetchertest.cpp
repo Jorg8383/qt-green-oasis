@@ -3,6 +3,7 @@
 #include "mocknetworkaccessmanager.h"
 #include "weathermodel.h"
 #include "weatherfetcher.h"
+#include "configmanager.h"
 
 WeatherFetcherTest::WeatherFetcherTest(QObject *parent)
     : QObject{parent}
@@ -16,11 +17,11 @@ void WeatherFetcherTest::testWeatherRequest()
     // Create a WeatherModel
     WeatherModel weatherModel;
 
-    // Get the weatheropen API key
-
+    // Get the API key from the config.ini file
+    auto apiKey = ConfigManager::instance().getValue("Weather/OpenWeatherApiKey");
 
     // Create a WeatherFetcher instance for testing
-    // WeatherFetcher weatherFetcher(networkManager, weatherModel, );
+    WeatherFetcher weatherFetcher(networkManager, weatherModel, apiKey.toString());
 }
 
 void WeatherFetcherTest::testNetworkError()

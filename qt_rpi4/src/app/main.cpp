@@ -4,9 +4,13 @@
 #include <QDebug>
 #include <weatherdata.h>
 #include <weathermodel.h>
+#include <configmanager.h>
 
 int main(int argc, char *argv[])
 {
+    // Initialise the ConfigManager
+    ConfigManager::instance().initialise("../../resources/config/config.ini");
+
     QGuiApplication app(argc, argv);
 
     // Register and expose C++ classes to QML

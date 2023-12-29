@@ -2,6 +2,8 @@
 #define WEATHERFETCHERTEST_H
 
 #include <QObject>
+#include <QFile>
+#include "mocknetworkreply.h"
 
 class WeatherFetcherTest : public QObject
 {
@@ -21,6 +23,9 @@ private slots:
     void cleanupTestCase(); // Will be called after the last test function was executed
     void init(); // Will be called before the test function is executed
     void cleanup(); // Will be called after the last test function was executed
+
+private:
+    QByteArray m_jsonData;
 };
 
 #endif // WEATHERFETCHERTEST_H

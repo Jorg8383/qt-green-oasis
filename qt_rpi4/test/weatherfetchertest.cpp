@@ -6,7 +6,7 @@ WeatherFetcherTest::WeatherFetcherTest(QObject *parent)
 
 void WeatherFetcherTest::testWeatherRequest()
 {
-
+    // Create a mock network reply
 }
 
 void WeatherFetcherTest::testNetworkError()

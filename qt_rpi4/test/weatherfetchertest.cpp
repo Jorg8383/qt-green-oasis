@@ -1,4 +1,8 @@
 #include "weatherfetchertest.h"
+#include "mocknetworkreply.h"
+#include "mocknetworkaccessmanager.h"
+#include "weathermodel.h"
+#include "weatherfetcher.h"
 
 WeatherFetcherTest::WeatherFetcherTest(QObject *parent)
     : QObject{parent}
@@ -6,11 +10,17 @@ WeatherFetcherTest::WeatherFetcherTest(QObject *parent)
 
 void WeatherFetcherTest::testWeatherRequest()
 {
-    // Create a mock network reply
-    std::unique_ptr<MockNetworkReply> mockReply(new MockNetworkReply(m_jsonData));
+    // Create a mock network manager
+    MockNetworkAccessManager networkManager(m_jsonData);
 
-    // Crate a mock network manager
+    // Create a WeatherModel
+    WeatherModel weatherModel;
 
+    // Get the weatheropen API key
+
+
+    // Create a WeatherFetcher instance for testing
+    // WeatherFetcher weatherFetcher(networkManager, weatherModel, );
 }
 
 void WeatherFetcherTest::testNetworkError()

@@ -1,9 +1,25 @@
 #include "configmanager.h"
 
-ConfigManager::ConfigManager(const QString &configFileName, QObject *parent)
-    : QObject{parent}
+ConfigManager::ConfigManager()
 {
     setObjectName("ConfigManager");
+}
+
+ConfigManager::~ConfigManager()
+{
+    // Cleanup if necessary
+}
+
+/* Singleton pattern -> ensures that this class has only one instance
+and provides a global point of acess to it */
+ConfigManager &ConfigManager::instance()
+{
+    static ConfigManager instance;
+    return instance;
+}
+
+void ConfigManager::initialise(const QString& configFileName)
+{
 
     QFile configFile(configFileName);
     if (configFile.open(QIODevice::ReadOnly))
@@ -40,3 +56,5 @@ QVariant ConfigManager::getValue(const QString &key) const
     if (!m_configData.contains(key)) qWarning() << this << "key not found: " << key;
     return m_configData.value(key);
 }
+
+

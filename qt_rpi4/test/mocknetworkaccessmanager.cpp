@@ -9,8 +9,11 @@ MockNetworkAccessManager::MockNetworkAccessManager(const QByteArray &mockData, Q
 
 QNetworkReply *MockNetworkAccessManager::createRequest(Operation op, const QNetworkRequest &request, QIODevice *outgoingData)
 {
-    Q_UNUSED(op);
-    Q_UNUSED(request);
-    Q_UNUSED(outgoingData);
-    return new MockNetworkReply(m_mockData, this);
+    if (op == QNetworkAccessManager::GetOperation)
+    {
+        // If it's a GET operation, return a mock reply
+        return new MockNetworkReply(m_mockData, this);
+    }
+    // For all other operations, call the base implementation
+    return QNetworkAccessManager::createRequest(op, request, outgoingData);
 }

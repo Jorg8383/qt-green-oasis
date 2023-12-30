@@ -9,7 +9,12 @@
 int main(int argc, char *argv[])
 {
     // Initialise the ConfigManager
-    ConfigManager::instance().initialise("../../resources/config/config.ini");
+    try {
+        // TODO get rid of absolute path
+        ConfigManager::instance().initialise("/home/parallels/QtProjects/qt-green-oasis/qt_rpi4/resources/config/config.ini");
+    } catch (const std::exception &e) {
+        qDebug() << "Exception ocurred while initialising the ConfigManager: " << e.what();
+    }
 
     QGuiApplication app(argc, argv);
 

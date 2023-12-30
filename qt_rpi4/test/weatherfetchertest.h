@@ -5,6 +5,7 @@
 #include <QFile>
 #include <QTest>
 #include <QNetworkAccessManager>
+#include <stdexcept>
 
 class WeatherFetcherTest : public QObject
 {

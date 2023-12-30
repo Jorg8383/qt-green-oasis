@@ -65,7 +65,11 @@ void WeatherFetcherTest::initTestCase()
     m_jsonData = file.readAll();
 
     // Initialise the ConfigManager
-    ConfigManager::instance().initialise("../resources/config/config.ini");
+    try {
+         ConfigManager::instance().initialise("/home/parallels/QtProjects/qt-green-oasis/qt_rpi4/resources/config/config.ini");
+    } catch (const std::exception &e) {
+        qDebug() << "Error: " << this << e.what();
+    }
 
 }
 

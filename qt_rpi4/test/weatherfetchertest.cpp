@@ -28,8 +28,8 @@ void WeatherFetcherTest::testWeatherRequest()
     QSignalSpy networkErrorSpy(&weatherFetcher, &WeatherFetcher::networkError);
 
     // Create an event loop, which is required to utilise QSignalSpy since we're outside of 'main' event loop
-    QEventLoop loop;
-    QObject::connect(&weatherFetcher, &WeatherFetcher::dataUpdated, &loop, &QEventLoop::quit);
+    // QEventLoop loop;
+    // QObject::connect(&weatherFetcher, &WeatherFetcher::dataUpdated, &loop, &QEventLoop::quit);
 
     // Request weather data
     auto latitude = ConfigManager::instance().getValue("Weather/Latitude");
@@ -37,7 +37,7 @@ void WeatherFetcherTest::testWeatherRequest()
     weatherFetcher.requestData(latitude.toDouble(), longitude.toDouble());
 
     // Start the event loop
-    loop.exec();
+    // loop.exec();
 
     // Wait for signals to be emitted
     QVERIFY2(dataUpdatedSpy.wait(), "dataUpdated signal not emitted");

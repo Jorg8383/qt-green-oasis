@@ -25,5 +25,6 @@ int main(int argc, char** argv)
 
     qInfo() << "Test status: " << status;
 
-    return app.exec();
+    return status;
+    // return app.exec();
 }

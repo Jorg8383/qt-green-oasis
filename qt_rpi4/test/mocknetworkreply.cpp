@@ -10,7 +10,7 @@ MockNetworkReply::MockNetworkReply(const QByteArray &data, QObject *parent)
     setHeader(QNetworkRequest::ContentLengthHeader, data.size());
     setReadBufferSize(data.size());
     open(QIODevice::ReadOnly | QIODevice::Unbuffered);
-    seek(0);
+    // seek(0);
 }
 
 QSharedPointer<QNetworkReply> MockNetworkReply::createMockNetworkReply(const QByteArray &data)

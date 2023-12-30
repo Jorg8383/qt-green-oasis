@@ -7,6 +7,7 @@
 #include <QMap>
 #include <QVariant>
 #include <QDebug>
+#include <stdexcept>
 
 class ConfigManager : public QObject
 {

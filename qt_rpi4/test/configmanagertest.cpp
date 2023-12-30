@@ -51,3 +51,13 @@ void ConfigManagerTest::testKeyNotFound()
     QString value = ConfigManager::instance().getValue("logLevel").toString();
     QVERIFY(value.isEmpty());
 }
+
+void ConfigManagerTest::testFileOpenError()
+{
+    ConfigManager& configManager = ConfigManager::instance();
+    QString nonExistentFile = "nonexistentfile.txt";
+
+    // Check that a std::runtime_error is thrown when trying to open a non-existent file
+    QVERIFY_EXCEPTION_THROWN(configManager.initialise(nonExistentFile), std::runtime_error);
+
+}

@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QTest>
 #include <configmanager.h>
+#include <stdexcept>
 
 class ConfigManagerTest : public QObject
 {
@@ -18,6 +19,7 @@ private slots:
     void cleanupTestCase();
     void testGetValue();
     void testKeyNotFound();
+    void testFileOpenError();
 
 };
 

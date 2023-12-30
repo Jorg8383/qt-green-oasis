@@ -10,7 +10,8 @@ MockNetworkReply::MockNetworkReply(const QByteArray &data, QObject *parent)
     setHeader(QNetworkRequest::ContentLengthHeader, data.size());
     setReadBufferSize(data.size());
     open(QIODevice::ReadOnly | QIODevice::Unbuffered);
-    // seek(0);
+
+    QTimer::singleShot(10, this, &MockNetworkReply::networkDelaySimulation);
 }
 
 QSharedPointer<QNetworkReply> MockNetworkReply::createMockNetworkReply(const QByteArray &data)
@@ -31,4 +32,10 @@ qint64 MockNetworkReply::readData(char *data, qint64 maxlen)
 void MockNetworkReply::abort()
 {
 
+}
+
+void MockNetworkReply::networkDelaySimulation()
+{
+    // Emit the finished signal to simulate the end of a network operation
+    emit finished();
 }

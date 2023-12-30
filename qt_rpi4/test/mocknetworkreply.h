@@ -20,6 +20,9 @@ protected:
     qint64 readData(char *data, qint64 maxlen) override;
     void abort() override;
 
+private slots:
+    void networkDelaySimulation();
+
 private:
     QByteArray m_data;
 };

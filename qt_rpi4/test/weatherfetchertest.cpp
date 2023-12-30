@@ -26,20 +26,15 @@ void WeatherFetcherTest::testWeatherRequest()
     // Connect signals for testing
     QSignalSpy dataUpdatedSpy(&weatherFetcher, &WeatherFetcher::dataUpdated);
     QSignalSpy networkErrorSpy(&weatherFetcher, &WeatherFetcher::networkError);
-
-    // Create an event loop, which is required to utilise QSignalSpy since we're outside of 'main' event loop
-    // QEventLoop loop;
-    // QObject::connect(&weatherFetcher, &WeatherFetcher::dataUpdated, &loop, &QEventLoop::quit);
+    QSignalSpy networkFinishedSpy(&networkManager, &MockNetworkAccessManager::finished);
 
     // Request weather data
     auto latitude = ConfigManager::instance().getValue("Weather/Latitude");
     auto longitude = ConfigManager::instance().getValue("Weather/Longitude");
     weatherFetcher.requestData(latitude.toDouble(), longitude.toDouble());
 
-    // Start the event loop
-    // loop.exec();
-
     // Wait for signals to be emitted
+    QVERIFY2(networkFinishedSpy.wait(), "MockNetworkAccessManager::finished signal not emitted");
     QVERIFY2(dataUpdatedSpy.wait(), "dataUpdated signal not emitted");
     QVERIFY2(networkErrorSpy.isEmpty(), "Unexpected networkError signal");
 

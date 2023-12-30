@@ -63,6 +63,9 @@ void WeatherFetcher::replyFinished(QNetworkReply *reply)
         {
             qWarning() << this << " - invalid data; JSON object was expected";
         }
+
+        qDebug() << this << " - dataUpdated() is emitted";
+        emit dataUpdated();
     }
 }
 

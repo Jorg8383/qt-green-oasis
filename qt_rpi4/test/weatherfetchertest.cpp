@@ -64,6 +64,9 @@ void WeatherFetcherTest::initTestCase()
     }
     m_jsonData = file.readAll();
 
+    // Initialise the ConfigManager
+    ConfigManager::instance().initialise("../resources/config/config.ini");
+
 }
 
 void WeatherFetcherTest::cleanupTestCase()

@@ -43,6 +43,9 @@ void WeatherFetcherTest::testWeatherRequest()
     QVERIFY2(dataUpdatedSpy.wait(), "dataUpdated signal not emitted");
     QVERIFY2(networkErrorSpy.isEmpty(), "Unexpected networkError signal");
 
+    // Validate the results
+    QCOMPARE(weatherModel.rowCount(), 40);
+    QCOMPARE(weatherModel.data(weatherModel.index(0), WeatherModel::WeatherMainRole).toString(), "Clouds");
 }
 
 void WeatherFetcherTest::testNetworkError()

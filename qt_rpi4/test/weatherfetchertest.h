@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QFile>
+#include <QTest>
 #include <QNetworkAccessManager>
 
 class WeatherFetcherTest : public QObject

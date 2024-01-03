@@ -1,6 +1,6 @@
 #include "weatherfetcher.h"
 
-WeatherFetcher::WeatherFetcher(QNetworkAccessManager &networkManager, WeatherModel &model, const QString &apiKey, QObject *parent)
+WeatherFetcher::WeatherFetcher(QNetworkAccessManager &networkManager, WeatherModel &model, QString apiKey, QObject *parent)
     : QObject{parent}, m_networkManager{networkManager}, m_weatherModel{model}, m_apiKey{apiKey}
 {
     setObjectName("WeatherFetcher");

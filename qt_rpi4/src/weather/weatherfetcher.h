@@ -17,7 +17,7 @@ class WeatherFetcher : public QObject
 {
     Q_OBJECT
 public:
-    explicit WeatherFetcher(QNetworkAccessManager& networkManager, WeatherModel& model, const QString& apiKey, QObject *parent = nullptr);
+    explicit WeatherFetcher(QNetworkAccessManager& networkManager, WeatherModel& model, QString apiKey, QObject *parent = nullptr);
     ~WeatherFetcher(); // Deconstructor
     void requestData(const double latitude, const double longitude);
 
@@ -35,7 +35,7 @@ private:
 
     QNetworkAccessManager& m_networkManager;
     WeatherModel& m_weatherModel;
-    const QString& m_apiKey;
+    QString m_apiKey;
     QString m_apiString = "https://api.openweathermap.org/data/2.5/forecast?lat=%1&lon=%2&appid=%3&units=metric";
     QUrl m_apiUrl;
 };

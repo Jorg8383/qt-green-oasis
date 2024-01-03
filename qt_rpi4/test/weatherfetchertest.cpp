@@ -19,6 +19,7 @@ void WeatherFetcherTest::testWeatherRequest()
 
     // Get the API key from the config.ini file
     auto apiKey = ConfigManager::instance().getValue("Weather/OpenWeatherApiKey");
+    qDebug() << "api key:" << apiKey.toString();
 
     // Create a WeatherFetcher instance for testing
     WeatherFetcher weatherFetcher(mockNam, weatherModel, apiKey.toString());

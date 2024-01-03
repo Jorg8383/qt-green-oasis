@@ -21,7 +21,7 @@ int main(int argc, char** argv)
     ASSERT_TEST(new ConfigManagerTest());
     ASSERT_TEST(new WeatherDataTest());
     ASSERT_TEST(new WeatherModelTest());
-    // ASSERT_TEST(new WeatherFetcherTest());
+    ASSERT_TEST(new WeatherFetcherTest());
 
     qInfo() << "Test status: " << status;
 

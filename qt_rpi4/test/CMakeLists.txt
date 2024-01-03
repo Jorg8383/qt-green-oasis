@@ -10,10 +10,11 @@ add_executable(rpi4_tests
     configmanagertest.h configmanagertest.cpp
     weatherdatatest.h weatherdatatest.cpp
     weathermodeltest.h weathermodeltest.cpp
-    mocknetworkreply.h mocknetworkreply.cpp
     weatherfetchertest.h weatherfetchertest.cpp
-    mocknetworkaccessmanager.h mocknetworkaccessmanager.cpp
+    MockNetworkAccessManager.hpp
+
 )
+target_include_directories(rpi4_tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 target_link_libraries(rpi4_tests PRIVATE Qt6::Core Qt6::Test Qt6::Network rpi4_core_lib rpi4_weather_lib)
 

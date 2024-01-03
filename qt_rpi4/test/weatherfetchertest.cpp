@@ -2,6 +2,8 @@
 #include <weathermodel.h>
 #include <weatherfetcher.h>
 #include <configmanager.h>
+#include <MockNetworkAccessManager.hpp>
+
 
 WeatherFetcherTest::WeatherFetcherTest(QObject *parent)
     : QObject{parent}
@@ -9,6 +11,17 @@ WeatherFetcherTest::WeatherFetcherTest(QObject *parent)
 
 void WeatherFetcherTest::testWeatherRequest()
 {
+    // Create and configure the mock network access manager
+    MockNetworkAccess::Manager<QNetworkAccessManager> mockNam;
+
+    // Create a WeatherModel
+    WeatherModel weatherModel;
+
+    // Get the API key from the config.ini file
+    auto apiKey = ConfigManager::instance().getValue("Weather/OpenWeatherApiKey");
+
+    // Create a WeatherFetcher instance for testing
+    WeatherFetcher weatherFetcher(mockNam, weatherModel, apiKey.toString());
 
 }
 
@@ -64,7 +77,7 @@ void WeatherFetcherTest::initTestCase()
 
     // Initialise the ConfigManager
     try {
-         ConfigManager::instance().initialise("/home/parallels/QtProjects/qt-green-oasis/qt_rpi4/resources/config/config.ini");
+        ConfigManager::instance().initialise("/home/parallels/QtProjects/qt-green-oasis/qt_rpi4/resources/config/config.ini");
     } catch (const std::exception &e) {
         qDebug() << "Error: " << this << e.what();
     }

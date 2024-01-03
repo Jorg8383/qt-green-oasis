@@ -16,12 +16,10 @@ WeatherFetcher::~WeatherFetcher()
 void WeatherFetcher::requestData(const double latitude, const double longitude)
 {
     qDebug() << this << " - Firing off GET request to openweather...";
-    // api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
-    QString apiString = QString("https://api.openweathermap.org/data/2.5/forecast?lat=%1&lon=%2&appid=%3&units=metric")
-                            .arg(latitude).arg(longitude).arg(m_apiKey);
-    qDebug() << this << " - Created openeweather API string: " << apiString;
-    QUrl apiUrl(apiString);
-    QNetworkRequest request(apiUrl);
+    QString apiString = m_apiString.arg(latitude).arg(longitude).arg(m_apiKey);
+    m_apiUrl.setUrl(apiString);
+    qDebug() << this << " - Making openweather API network request with URL: " << m_apiUrl.toString();
+    QNetworkRequest request(m_apiUrl);
     m_networkManager.get(request);
 }
 
@@ -98,4 +96,9 @@ void WeatherFetcher::extractWeatherInfo(const QJsonDocument &jsonResponse)
 
     // Pass the created weather item list to the weather model
     m_weatherModel.setWeatherData(weatherItemList);
+}
+
+QUrl WeatherFetcher::apiUrl() const
+{
+    return m_apiUrl;
 }

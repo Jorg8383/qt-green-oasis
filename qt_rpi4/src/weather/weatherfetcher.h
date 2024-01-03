@@ -21,6 +21,8 @@ public:
     ~WeatherFetcher(); // Deconstructor
     void requestData(const double latitude, const double longitude);
 
+    QUrl apiUrl() const;
+
 signals:
     void dataUpdated();
     void networkError(QNetworkReply::NetworkError errorCode, const QString& errorString);
@@ -34,6 +36,8 @@ private:
     QNetworkAccessManager& m_networkManager;
     WeatherModel& m_weatherModel;
     const QString& m_apiKey;
+    QString m_apiString = "https://api.openweathermap.org/data/2.5/forecast?lat=%1&lon=%2&appid=%3&units=metric";
+    QUrl m_apiUrl;
 };
 
 #endif // WEATHERFETCHER_H

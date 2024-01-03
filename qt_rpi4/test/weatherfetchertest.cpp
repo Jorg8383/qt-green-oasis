@@ -23,6 +23,28 @@ void WeatherFetcherTest::testWeatherRequest()
     // Create a WeatherFetcher instance for testing
     WeatherFetcher weatherFetcher(mockNam, weatherModel, apiKey.toString());
 
+    // Configure a fixed JSON response for a matching URL request
+    mockNam.whenGet(weatherFetcher.apiUrl()).reply().withBody(m_jsonData);
+
+    // Connect signals for testing
+    QSignalSpy dataUpdatedSpy(&weatherFetcher, &WeatherFetcher::dataUpdated);
+    QSignalSpy networkErrorSpy(&weatherFetcher, &WeatherFetcher::networkError);
+
+
+    // Call the method under test by requesting weather data
+    auto latitude = ConfigManager::instance().getValue("Weather/Latitude");
+    auto longitude = ConfigManager::instance().getValue("Weather/Longitude");
+    weatherFetcher.requestData(latitude.toDouble(), longitude.toDouble());
+
+    // Wait for signals to be emitted
+    // QVERIFY2(networkFinishedSpy.wait(), "MockNetworkAccessManager::finished signal not emitted");
+    QVERIFY2(dataUpdatedSpy.wait(), "dataUpdated signal not emitted");
+    QVERIFY2(networkErrorSpy.isEmpty(), "Unexpected networkError signal");
+
+    // Validate the results
+    QCOMPARE(weatherModel.rowCount(), 40);
+    QCOMPARE(weatherModel.data(weatherModel.index(0), WeatherModel::WeatherMainRole).toString(), "Clouds");
+
 }
 
 // void WeatherFetcherTest::testWeatherRequest()

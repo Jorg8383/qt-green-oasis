@@ -6,6 +6,7 @@
 #include <QTest>
 #include <QNetworkAccessManager>
 #include <stdexcept>
+#include <QSignalSpy>
 
 class WeatherFetcherTest : public QObject
 {

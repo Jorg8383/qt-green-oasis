@@ -30,17 +30,14 @@ signals:
     void networkError(QNetworkReply::NetworkError errorCode, const QString& errorString);
 
 private slots:
+    void exractWeatherFromReply();
+
+private:
     QNetworkRequest createWeatherRequest(QString url);
     void clearPreviousWeatherRequest();
     void sendWeatherRequest(const QNetworkRequest& request);
     QJsonObject extractJsonFromReply();
-    void exractWeatherFromReply();
-
-
-    // void replyFinished(QNetworkReply *reply);
-
-private:
-    // void extractWeatherInfo(const QJsonDocument& jsonResponse);
+    bool requestWasSuccessful() const;
 
     QPointer<QNetworkAccessManager> m_networkManager;
     QPointer<QNetworkReply> m_lastReply;

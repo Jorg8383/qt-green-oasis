@@ -21,6 +21,7 @@ public:
     explicit WeatherFetcher(QNetworkAccessManager* networkManager, WeatherModel& model, QString apiKey, QObject *parent = nullptr);
     ~WeatherFetcher(); // Deconstructor
     void fetchData(const double latitude, const double longitude);
+    bool fetchIsFinished() const;
 
     QUrl apiUrl() const;
 
@@ -29,12 +30,20 @@ signals:
     void networkError(QNetworkReply::NetworkError errorCode, const QString& errorString);
 
 private slots:
-    void replyFinished(QNetworkReply *reply);
+    QNetworkRequest createWeatherRequest(QString url);
+    void clearPreviousWeatherRequest();
+    void sendWeatherRequest(const QNetworkRequest& request);
+    QJsonObject extractJsonFromReply();
+    void exractWeatherFromReply();
+
+
+    // void replyFinished(QNetworkReply *reply);
 
 private:
-    void extractWeatherInfo(const QJsonDocument& jsonResponse);
+    // void extractWeatherInfo(const QJsonDocument& jsonResponse);
 
     QPointer<QNetworkAccessManager> m_networkManager;
+    QPointer<QNetworkReply> m_lastReply;
     WeatherModel& m_weatherModel;
     QString m_apiKey;
     QString m_apiString = "https://api.openweathermap.org/data/2.5/forecast?lat=%1&lon=%2&appid=%3&units=metric";

@@ -22,7 +22,7 @@ void WeatherFetcherTest::testWeatherRequest()
     qDebug() << "api key:" << apiKey.toString();
 
     // Create a WeatherFetcher instance for testing
-    WeatherFetcher weatherFetcher(mockNam, weatherModel, apiKey.toString());
+    WeatherFetcher weatherFetcher(&mockNam, weatherModel, apiKey.toString());
 
     // Configure a fixed JSON response for a matching URL request
     mockNam.whenGet(weatherFetcher.apiUrl()).reply().withBody(m_jsonData);

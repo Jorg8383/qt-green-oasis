@@ -1,11 +1,11 @@
 #include "weatherfetcher.h"
 
-WeatherFetcher::WeatherFetcher(QNetworkAccessManager &networkManager, WeatherModel &model, QString apiKey, QObject *parent)
+WeatherFetcher::WeatherFetcher(QNetworkAccessManager *networkManager, WeatherModel &model, QString apiKey, QObject *parent)
     : QObject{parent}, m_networkManager{networkManager}, m_weatherModel{model}, m_apiKey{apiKey}
 {
     setObjectName("WeatherFetcher");
     // Create signal and slot connections between this class and the network access manager
-    connect(&m_networkManager, &QNetworkAccessManager::finished, this, &WeatherFetcher::replyFinished);
+    // connect(&m_networkManager, &QNetworkAccessManager::finished, this, &WeatherFetcher::replyFinished);
 }
 
 WeatherFetcher::~WeatherFetcher()
@@ -20,7 +20,7 @@ void WeatherFetcher::fetchData(const double latitude, const double longitude)
     m_apiUrl.setUrl(apiString);
     qDebug() << this << " - Making openweather API network request with URL: " << m_apiUrl.toString();
     QNetworkRequest request(m_apiUrl);
-    m_networkManager.get(request);
+    m_networkManager->get(request);
 }
 
 void WeatherFetcher::replyFinished(QNetworkReply *reply)

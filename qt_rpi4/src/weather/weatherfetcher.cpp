@@ -56,8 +56,42 @@ QJsonObject WeatherFetcher::extractJsonFromReply()
 
 }
 
+bool WeatherFetcher::requestWasSuccessful()
+{
+
+    // First, check for null pointers
+    if (!m_lastReply)
+    {
+        throw std::runtime_error("Weatherfetcher - m_lastReply object is null!");
+    }
+
+    // Check weather the reply was ok
+    bool status = true;
+    if (!(m_lastReply->error() == QNetworkReply::NoError
+          && m_lastReply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt() == 200)) // 200 == ok
+    {
+        // Report a warning about the occured network error
+        qWarning() << this << "network error occured: " << m_lastReply->errorString();
+        // Emit an error signal with details
+        emit networkError(m_lastReply->error(), m_lastReply->errorString());
+        status = false;
+    }
+    return status;
+}
+
+void WeatherFetcher::extractWeatherFromJson(const QJsonObject &json)
+{
+    // TODO extract weather details here...
+}
+
 void WeatherFetcher::exractWeatherFromReply()
 {
+    if (requestWasSuccessful())
+    {
+        const QJsonObject jsonObj = extractJsonFromReply();
+        if (!jsonObj.isEmpty())
+            extractWeatherFromJson(jsonObj);
+    }
 
 }
 

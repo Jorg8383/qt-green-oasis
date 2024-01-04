@@ -11,6 +11,7 @@
 #include <QJsonParseError>
 #include <QJsonObject>
 #include <QJsonArray>
+#include <stdexcept>
 #include "weathermodel.h"
 #include "weatherdata.h"
 
@@ -37,7 +38,8 @@ private:
     void clearPreviousWeatherRequest();
     void sendWeatherRequest(const QNetworkRequest& request);
     QJsonObject extractJsonFromReply();
-    bool requestWasSuccessful() const;
+    bool requestWasSuccessful();
+    void extractWeatherFromJson(const QJsonObject& json);
 
     QPointer<QNetworkAccessManager> m_networkManager;
     QPointer<QNetworkReply> m_lastReply;

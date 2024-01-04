@@ -15,7 +15,7 @@ WeatherFetcher::~WeatherFetcher()
 
 void WeatherFetcher::fetchData(const double latitude, const double longitude)
 {
-    // Create API URL string by Replacing placeholders in string with arguments
+    // Create API URL string by replacing placeholders in string with arguments
     QString apiString = m_apiString.arg(latitude).arg(longitude).arg(m_apiKey);
     if (m_networkManager)
     {
@@ -46,7 +46,9 @@ void WeatherFetcher::clearPreviousWeatherRequest()
 
 void WeatherFetcher::sendWeatherRequest(const QNetworkRequest &request)
 {
-
+    m_lastReply = m_networkManager->get(request);
+    m_lastReply->setParent(this);
+    connect(m_lastReply, &QNetworkReply::finished, this, &WeatherFetcher::exractWeatherFromReply);
 }
 
 QJsonObject WeatherFetcher::extractJsonFromReply()

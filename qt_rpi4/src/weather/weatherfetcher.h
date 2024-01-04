@@ -19,7 +19,7 @@ class WeatherFetcher : public QObject
 public:
     explicit WeatherFetcher(QNetworkAccessManager& networkManager, WeatherModel& model, QString apiKey, QObject *parent = nullptr);
     ~WeatherFetcher(); // Deconstructor
-    void requestData(const double latitude, const double longitude);
+    void fetchData(const double latitude, const double longitude);
 
     QUrl apiUrl() const;
 

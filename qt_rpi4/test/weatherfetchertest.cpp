@@ -35,7 +35,7 @@ void WeatherFetcherTest::testWeatherRequest()
     // Call the method under test by requesting weather data
     auto latitude = ConfigManager::instance().getValue("Weather/Latitude");
     auto longitude = ConfigManager::instance().getValue("Weather/Longitude");
-    weatherFetcher.requestData(latitude.toDouble(), longitude.toDouble());
+    weatherFetcher.fetchData(latitude.toDouble(), longitude.toDouble());
 
     // Verify emitted signals
     QVERIFY2(dataUpdatedSpy.wait(), "dataUpdated signal not emitted");

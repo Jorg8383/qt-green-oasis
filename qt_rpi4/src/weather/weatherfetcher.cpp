@@ -13,7 +13,7 @@ WeatherFetcher::~WeatherFetcher()
 
 }
 
-void WeatherFetcher::requestData(const double latitude, const double longitude)
+void WeatherFetcher::fetchData(const double latitude, const double longitude)
 {
     qDebug() << this << " - Firing off GET request to openweather...";
     QString apiString = m_apiString.arg(latitude).arg(longitude).arg(m_apiKey);

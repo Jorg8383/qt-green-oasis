@@ -11,6 +11,7 @@
 #include <QJsonParseError>
 #include <QJsonObject>
 #include <QJsonArray>
+#include <QTimer>
 #include <stdexcept>
 #include "weathermodel.h"
 #include "weatherdata.h"
@@ -21,10 +22,17 @@ class WeatherFetcher : public QObject
 public:
     explicit WeatherFetcher(QNetworkAccessManager* networkManager, WeatherModel& model, QString apiKey, QObject *parent = nullptr);
     ~WeatherFetcher(); // Deconstructor
-    void fetchData(const double latitude, const double longitude);
     bool fetchIsFinished() const;
+    void startFetching(int interval); // Interval in milliseconds
+    void stopFetching();
 
     QUrl apiUrl() const;
+
+    double longitude() const;
+    void setLongitude(double newLongitude);
+
+    double latitude() const;
+    void setLatitude(double newLatitude);
 
 signals:
     void dataUpdated();
@@ -32,6 +40,7 @@ signals:
 
 private slots:
     void exractWeatherFromReply();
+    void fetchWeatherData();
 
 private:
     QNetworkRequest createWeatherRequest(QString url);
@@ -41,12 +50,16 @@ private:
     bool requestWasSuccessful();
     void extractWeatherFromJson(const QJsonObject& json);
 
+    // Private members
+    QTimer* m_timer;
     QPointer<QNetworkAccessManager> m_networkManager;
     QPointer<QNetworkReply> m_lastReply;
     WeatherModel& m_weatherModel;
     QString m_apiKey;
     QString m_apiString = "https://api.openweathermap.org/data/2.5/forecast?lat=%1&lon=%2&appid=%3&units=metric";
     QUrl m_apiUrl;
+    double m_longitude;
+    double m_latitude;
 };
 
 #endif // WEATHERFETCHER_H

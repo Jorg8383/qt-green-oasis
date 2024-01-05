@@ -4,6 +4,9 @@ WeatherFetcher::WeatherFetcher(QNetworkAccessManager *networkManager, WeatherMod
     : QObject{parent}, m_networkManager{networkManager}, m_weatherModel{model}, m_apiKey{apiKey}
 {
     setObjectName("WeatherFetcher");
+    // Create an interval timer and connect it to the fetchWeatherData slot
+    m_timer = new QTimer(this);
+    connect(m_timer, &QTimer::timeout, this, &WeatherFetcher::fetchWeatherData);
 }
 
 WeatherFetcher::~WeatherFetcher()
@@ -11,10 +14,10 @@ WeatherFetcher::~WeatherFetcher()
 
 }
 
-void WeatherFetcher::fetchData(const double latitude, const double longitude)
+void WeatherFetcher::fetchWeatherData()
 {
     // Create API URL string by replacing placeholders in string with arguments
-    QString apiString = m_apiString.arg(latitude).arg(longitude).arg(m_apiKey);
+    QString apiString = m_apiString.arg(m_latitude).arg(m_longitude).arg(m_apiKey);
     if (m_networkManager)
     {
         clearPreviousWeatherRequest();
@@ -26,6 +29,16 @@ void WeatherFetcher::fetchData(const double latitude, const double longitude)
 bool WeatherFetcher::fetchIsFinished() const
 {
     return m_lastReply && m_lastReply->isFinished();
+}
+
+void WeatherFetcher::startFetching(int interval)
+{
+    m_timer->start(interval); // Interval in milliseconds
+}
+
+void WeatherFetcher::stopFetching()
+{
+    m_timer->stop();
 }
 
 QNetworkRequest WeatherFetcher::createWeatherRequest(QString url)
@@ -136,6 +149,26 @@ void WeatherFetcher::extractWeatherFromJson(const QJsonObject &json)
 
     // Pass the created weather item list to the weather model
     m_weatherModel.setWeatherData(weatherItemList);
+}
+
+double WeatherFetcher::latitude() const
+{
+    return m_latitude;
+}
+
+void WeatherFetcher::setLatitude(double newLatitude)
+{
+    m_latitude = newLatitude;
+}
+
+double WeatherFetcher::longitude() const
+{
+    return m_longitude;
+}
+
+void WeatherFetcher::setLongitude(double newLongitude)
+{
+    m_longitude = newLongitude;
 }
 
 void WeatherFetcher::exractWeatherFromReply()

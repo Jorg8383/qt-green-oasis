@@ -23,7 +23,6 @@ void WeatherFetcher::fetchData(const double latitude, const double longitude)
         const QNetworkRequest weatherRequest = createWeatherRequest(apiString);
         sendWeatherRequest(weatherRequest);
     }
-
 }
 
 bool WeatherFetcher::fetchIsFinished() const
@@ -53,7 +52,27 @@ void WeatherFetcher::sendWeatherRequest(const QNetworkRequest &request)
 
 QJsonObject WeatherFetcher::extractJsonFromReply()
 {
+    // Read the received JSON data
+    const QByteArray data = m_lastReply->readAll();
 
+    // Convert the received JSON data into a QJsonObject
+    QJsonParseError parseError;
+    QJsonObject jsonObj = QJsonDocument::fromJson(data, &parseError).object();
+
+    // Check for potential errors
+    if (parseError.error != QJsonParseError::NoError)
+    {
+        // Report a warning about the parsing error
+        qWarning() << this << " - JSON parsing error: " << parseError.errorString();
+        // Emit an error signal with details
+        emit networkError(QNetworkReply::UnknownContentError, parseError.errorString());
+    }
+    else if (jsonObj.isEmpty()) {
+        // Report a warning about the empty object
+        qWarning() << this << " - JSON object is empty!";
+    }
+
+    return jsonObj;
 }
 
 bool WeatherFetcher::requestWasSuccessful()

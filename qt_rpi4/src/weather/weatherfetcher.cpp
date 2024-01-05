@@ -97,7 +97,7 @@ bool WeatherFetcher::requestWasSuccessful()
           && m_lastReply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt() == 200)) // 200 == ok
     {
         // Report a warning about the occured network error
-        qWarning() << this << "network error occured: " << m_lastReply->errorString();
+        qWarning() << this << "Network error occured: " << m_lastReply->errorString();
         // Emit an error signal with details
         emit networkError(m_lastReply->error(), m_lastReply->errorString());
         status = false;
@@ -107,7 +107,40 @@ bool WeatherFetcher::requestWasSuccessful()
 
 void WeatherFetcher::extractWeatherFromJson(const QJsonObject &json)
 {
-    // TODO extract weather details here...
+    if (json.isEmpty())
+    {
+        qWarning() << "Error: weather can't be extracted from JSON due to a empty JSON object!";
+        return;
+    }
+
+    // Create a weather data list that can be passed to the weather model
+    QList<WeatherData*> weatherItemList;
+
+    // Extract "city" object information
+    QJsonObject cityObject = json["city"].toObject();
+    QString cityName = cityObject["name"].toString();
+
+    // Extract weather information
+    bool isCurrentWeather = true;
+    QJsonArray weatherInfoList = json["list"].toArray();
+    for (const QJsonValue& listValue: weatherInfoList)
+    {
+        if (listValue.isObject())
+        {
+            QJsonObject listObject = listValue.toObject();
+            QString listItemName = listObject["dt_txt"].toString();
+            WeatherData *weatherDataItem = new WeatherData(listItemName, listObject, cityName, isCurrentWeather);
+            isCurrentWeather = false;
+
+            // Append each weather data item to the list
+            weatherItemList.append(weatherDataItem);
+        }
+    }
+
+    // Pass the created weather item list to the weather model
+    m_weatherModel.setWeatherData(weatherItemList);
+
+    emit dataUpdated();
 }
 
 void WeatherFetcher::exractWeatherFromReply()
@@ -115,8 +148,7 @@ void WeatherFetcher::exractWeatherFromReply()
     if (requestWasSuccessful())
     {
         const QJsonObject jsonObj = extractJsonFromReply();
-        if (!jsonObj.isEmpty())
-            extractWeatherFromJson(jsonObj);
+        extractWeatherFromJson(jsonObj);
     }
 
 }

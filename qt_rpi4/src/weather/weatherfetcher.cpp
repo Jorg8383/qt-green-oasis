@@ -28,7 +28,7 @@ void WeatherFetcher::fetchData(const double latitude, const double longitude)
 
 bool WeatherFetcher::fetchIsFinished() const
 {
-
+    return m_lastReply && m_lastReply->isFinished();
 }
 
 QNetworkRequest WeatherFetcher::createWeatherRequest(QString url)

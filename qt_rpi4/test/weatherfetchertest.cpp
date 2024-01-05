@@ -34,6 +34,8 @@ void WeatherFetcherTest::testWeatherRequest()
     // Call the method under test by requesting weather data
     auto latitude = ConfigManager::instance().getValue("Weather/Latitude");
     auto longitude = ConfigManager::instance().getValue("Weather/Longitude");
+    weatherFetcher.setLatitude(latitude.toDouble());
+    weatherFetcher.setLongitude(longitude.toDouble());
     weatherFetcher.startFetching(1000); // Fetch the current weather every 1000 milliseconds
 
     // Verify emitted signals

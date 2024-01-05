@@ -52,6 +52,13 @@ void WeatherFetcher::sendWeatherRequest(const QNetworkRequest &request)
 
 QJsonObject WeatherFetcher::extractJsonFromReply()
 {
+    // Check for null pointers
+    if (!m_lastReply)
+    {
+        qWarning() << this << "Error: m_lastReply is a null pointer!";
+        return QJsonObject(); // Return a emtpy object
+    }
+
     // Read the received JSON data
     const QByteArray data = m_lastReply->readAll();
 
@@ -63,13 +70,13 @@ QJsonObject WeatherFetcher::extractJsonFromReply()
     if (parseError.error != QJsonParseError::NoError)
     {
         // Report a warning about the parsing error
-        qWarning() << this << " - JSON parsing error: " << parseError.errorString();
+        qWarning() << this << "Error: JSON parsing failed: " << parseError.errorString();
         // Emit an error signal with details
         emit networkError(QNetworkReply::UnknownContentError, parseError.errorString());
     }
     else if (jsonObj.isEmpty()) {
         // Report a warning about the empty object
-        qWarning() << this << " - JSON object is empty!";
+        qWarning() << this << "Error: JSON object is empty!";
     }
 
     return jsonObj;

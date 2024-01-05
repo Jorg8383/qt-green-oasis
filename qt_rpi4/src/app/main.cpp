@@ -8,6 +8,9 @@
 #include <configmanager.h>
 #include <weatherfetcher.h>
 
+// Function prototypes
+void initWeatherFetcher(WeatherFetcher& weatherFetcher);
+
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
@@ -46,11 +49,23 @@ int main(int argc, char *argv[])
     WeatherModel weatherModel(&app);
     QNetworkAccessManager nam(&app);
     WeatherFetcher weatherFetcher(&nam, weatherModel, apiKey.toString(), &app);
-
-    // For now hardcode the location of the city Ulm
-    const double LATITUDE = 48.400002;
-    const double LONGITUDE = 9.983333;
-
+    initWeatherFetcher(weatherFetcher);
+    weatherFetcher.startFetching(5000); // [ms] Fetch the current weather in 5 second intervals
 
     return app.exec();
+}
+
+void initWeatherFetcher(WeatherFetcher& weatherFetcher)
+{
+    static bool initDone = false;
+    if (initDone) return;
+    qInfo() << "Initialising the weather fetcher...";
+
+    // Define the weather location to be fetched
+    auto latitude = ConfigManager::instance().getValue("Weather/Latitude");
+    auto longitude = ConfigManager::instance().getValue("Weather/Longitude");
+    weatherFetcher.setLatitude(latitude.toDouble());
+    weatherFetcher.setLongitude(longitude.toDouble());
+
+    initDone = true;
 }

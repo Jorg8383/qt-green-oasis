@@ -137,8 +137,6 @@ void WeatherFetcher::extractWeatherFromJson(const QJsonObject &json)
 
     // Pass the created weather item list to the weather model
     m_weatherModel.setWeatherData(weatherItemList);
-
-    emit dataUpdated();
 }
 
 void WeatherFetcher::exractWeatherFromReply()
@@ -147,6 +145,7 @@ void WeatherFetcher::exractWeatherFromReply()
     {
         const QJsonObject jsonObj = extractJsonFromReply();
         extractWeatherFromJson(jsonObj);
+        emit dataUpdated();
     }
 
 }

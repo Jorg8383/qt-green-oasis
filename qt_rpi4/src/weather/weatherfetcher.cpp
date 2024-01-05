@@ -82,7 +82,6 @@ QJsonObject WeatherFetcher::extractJsonFromReply()
 
 bool WeatherFetcher::requestWasSuccessful()
 {
-
     // First, check for null pointers
     if (!m_lastReply)
     {

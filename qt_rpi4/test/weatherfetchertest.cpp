@@ -24,8 +24,7 @@ void WeatherFetcherTest::testWeatherRequest()
     // Create a WeatherFetcher instance for testing
     WeatherFetcher weatherFetcher(&mockNam, weatherModel, apiKey.toString());
 
-    // Configure a fixed JSON response for a matching URL request
-    mockNam.whenGet(weatherFetcher.apiUrl()).reply().withBody(m_jsonData);
+    mockNam.whenGet(QUrl("https://api.openweathermap.org/")).has( MockNetworkAccess::Predicates::UrlMatching(QRegularExpression(".*openweathermap.org.*"))).reply().withBody(m_jsonData);
 
     // // Connect signals for testing
     QSignalSpy dataUpdatedSpy(&weatherFetcher, &WeatherFetcher::dataUpdated);

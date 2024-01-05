@@ -10,6 +10,7 @@
 
 // Function prototypes
 void initWeatherFetcher(WeatherFetcher& weatherFetcher);
+void printImportPathsToConsole(QQmlApplicationEngine& engine);
 
 int main(int argc, char *argv[])
 {
@@ -27,12 +28,7 @@ int main(int argc, char *argv[])
         Qt::QueuedConnection);
     engine.load(url);
 
-    // Print the Qt import paths list to the console for debugging purposes
-    // QStringList importPaths = engine.importPathList();
-    // qDebug() << "Import Paths:";
-    // for (const QString &path : importPaths) {
-    //     qDebug() << path;
-    // }
+    // printImportPathsToConsole(engine);
 
     // Initialise the ConfigManager
     try {
@@ -68,4 +64,14 @@ void initWeatherFetcher(WeatherFetcher& weatherFetcher)
     weatherFetcher.setLongitude(longitude.toDouble());
 
     initDone = true;
+}
+
+void printImportPathsToConsole(QQmlApplicationEngine &engine)
+{
+    // Print the Qt import paths list to the console for debugging purposes
+    QStringList importPaths = engine.importPathList();
+    qDebug() << "Import Paths:";
+    for (const QString &path : importPaths) {
+        qDebug() << path;
+    }
 }

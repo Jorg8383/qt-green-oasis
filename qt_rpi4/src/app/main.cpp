@@ -7,6 +7,7 @@
 #include <weathermodel.h>
 #include <configmanager.h>
 #include <weatherfetcher.h>
+#include <custommessagehandler.h>
 
 // Function prototypes
 void initWeatherFetcher(WeatherFetcher& weatherFetcher);
@@ -15,6 +16,9 @@ void printImportPathsToConsole(QQmlApplicationEngine& engine);
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
+
+    // Install the custom message handler
+    qInstallMessageHandler(customMessageHandler);
 
     // Register and expose C++ classes to QML
     qmlRegisterType<WeatherData>("com.greenoasis.weatherdata", 1, 0, "WeatherData");

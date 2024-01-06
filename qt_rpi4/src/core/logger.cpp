@@ -2,6 +2,7 @@
 
 Logger::Logger()
 {
+    setObjectName("Logger");
     readConfiguration();
     if (m_logToFileEnabled)
     {
@@ -9,6 +10,9 @@ Logger::Logger()
         {
             qWarning() << "Failed to open log file:" << m_logFile.errorString();
             m_logToFileEnabled = false;
+        } else
+        {
+            qInfo() << this << "Log file has been opened successfully";
         }
     }
 }
@@ -29,23 +33,28 @@ void Logger::log(QtMsgType type, const QMessageLogContext &context, const QStrin
 {
     // Lock the mutex to ensure thread-safety
     QMutexLocker locker(&m_mutex);
+
     // Create the time stamp and the log level as strings
     QString timeStamp = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss.zzz");
     QString logLevel = logLevelToString(type);
-    // Create a formatted message that includes all details required to track down the source
-    QString formattedMessage = QString("%1 [%2] (%3:%4, %5): %6")
-                                   .arg(timeStamp,
-                                        logLevel,
-                                        QString::fromUtf8(context.file),
-                                        QString::number(context.line),
-                                        QString::fromUtf8(context.function),
-                                        msg);
+
+    // Create a formatted message that is configurable
+    QString formattedMessage = QString("%1 [%2]").arg(timeStamp, logLevel);
+    if (m_logFileAndLineEnabled)
+    {
+        formattedMessage += QString(" (%1:%2)").arg(QString::fromUtf8(context.file),
+                                                    QString::number(context.line));
+    }
+    if (m_logContentEnabled)
+    {
+        formattedMessage += QString(": %1").arg(msg);
+    }
 
     // Log to the file if enabled
     if (m_logToFileEnabled && m_logFile.isOpen())
     {
         QTextStream out(&m_logFile);
-        out << formattedMessage;
+        out << formattedMessage << "\n";
         out.flush();
     }
 
@@ -58,8 +67,11 @@ void Logger::log(QtMsgType type, const QMessageLogContext &context, const QStrin
 
 void Logger::readConfiguration()
 {
+    // Get config flags from the config.ini file
     m_logToFileEnabled = ConfigManager::instance().getValue("Logging/LogToFile").toBool();
     m_logToConsoleEnabled = ConfigManager::instance().getValue("Logging/LogToConsole").toBool();
+    m_logFileAndLineEnabled = ConfigManager::instance().getValue("Logging/LogFileAndLineEnabled").toBool();
+    m_logContentEnabled = ConfigManager::instance().getValue("Logging/LogContentEnabled").toBool();
 
     // Use the temp directory for the log file
     QString appDataPath = QStandardPaths::writableLocation(QStandardPaths::TempLocation);
@@ -68,6 +80,7 @@ void Logger::readConfiguration()
 
     if (m_logToFileEnabled) {
         m_logFile.setFileName(logFilePath);
+        qDebug() << "Log file path" << logFilePath;
     }
 }
 

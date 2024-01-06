@@ -11,8 +11,9 @@
 #include <QStandardPaths>
 #include <configmanager.h>
 
-class Logger
+class Logger : public QObject
 {
+    Q_OBJECT
 public:
     // The logger uses the singleton pattern, so the constructor has to be private
     static Logger& instance();
@@ -27,6 +28,8 @@ private:
     QFile m_logFile;
     bool m_logToFileEnabled;
     bool m_logToConsoleEnabled;
+    bool m_logFileAndLineEnabled;
+    bool m_logContentEnabled;
     QMutex m_mutex;
 };
 

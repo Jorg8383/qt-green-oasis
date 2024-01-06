@@ -21,7 +21,8 @@ Logger::~Logger()
 
 Logger &Logger::instance()
 {
-
+    static Logger loggerInstance;
+    return loggerInstance;
 }
 
 void Logger::log(QtMsgType type, const QMessageLogContext &context, const QString &msg)

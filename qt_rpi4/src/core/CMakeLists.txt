@@ -10,6 +10,7 @@ add_library(rpi4_core_lib STATIC
 
     configmanager.h configmanager.cpp
     logger.h logger.cpp
+    custommessagehandler.h
 )
 
 target_link_libraries(rpi4_core_lib PRIVATE Qt6::Core)

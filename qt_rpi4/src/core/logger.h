@@ -8,6 +8,7 @@
 #include <QMutexLocker>
 #include <QDebug>
 #include <QSettings>
+#include <configmanager.h>
 
 class Logger
 {
@@ -22,10 +23,10 @@ private:
     void readConfiguration();
     static QString logLevelToString(QtMsgType type);
 
-    QFile logFile;
-    bool logToFileEnabled;
-    bool logToConsoleEnabled;
-    QMutex mutex;
+    QFile m_logFile;
+    bool m_logToFileEnabled;
+    bool m_logToConsoleEnabled;
+    QMutex m_mutex;
 };
 
 #endif // LOGGER_H

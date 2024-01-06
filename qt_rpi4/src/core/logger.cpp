@@ -27,7 +27,33 @@ Logger &Logger::instance()
 
 void Logger::log(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
+    // Lock the mutex to ensure thread-safety
+    QMutexLocker locker(&m_mutex);
+    // Create the time stamp and the log level as strings
+    QString timeStamp = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss.zzz");
+    QString logLevel = logLevelToString(type);
+    // Create a formatted message that includes all details required to track down the source
+    QString formattedMessage = QString("%1 [%2] (%3:%4, %5): %6")
+                                   .arg(timeStamp,
+                                        logLevel,
+                                        QString::fromUtf8(context.file),
+                                        QString::number(context.line),
+                                        QString::fromUtf8(context.function),
+                                        msg);
 
+    // Log to the file if enabled
+    if (m_logToFileEnabled && m_logFile.isOpen())
+    {
+        QTextStream out(&m_logFile);
+        out << formattedMessage;
+        out.flush();
+    }
+
+    // Log to the console if enabled
+    if (m_logToConsoleEnabled)
+    {
+        fprintf(stderr, "%s\n", formattedMessage.toLocal8Bit().constData());
+    }
 }
 
 void Logger::readConfiguration()

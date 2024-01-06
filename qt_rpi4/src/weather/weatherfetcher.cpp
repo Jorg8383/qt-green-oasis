@@ -69,11 +69,10 @@ void WeatherFetcher::sendWeatherRequest(const QNetworkRequest &request)
 QJsonObject WeatherFetcher::extractJsonFromReply()
 {
     qDebug() << this << "extractJsonFromReply() is being invoked";
-    // Check for null pointers
+    // First, check for null pointers
     if (!m_lastReply)
     {
-        qWarning() << this << "Error: m_lastReply is a null pointer!";
-        return QJsonObject(); // Return a emtpy object
+        throw std::runtime_error("WeatherFetcher::extractJsonFromReply() - m_lastReply pointer is null!");
     }
 
     // Read the received JSON data
@@ -104,7 +103,7 @@ bool WeatherFetcher::requestWasSuccessful()
     // First, check for null pointers
     if (!m_lastReply)
     {
-        throw std::runtime_error("Weatherfetcher - m_lastReply object is null!");
+        throw std::runtime_error("WeatherFetcher::requestWasSuccessful() - m_lastReply pointer is null!");
     }
 
     // Check weather the reply was ok

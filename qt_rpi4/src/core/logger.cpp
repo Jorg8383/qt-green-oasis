@@ -2,12 +2,21 @@
 
 Logger::Logger()
 {
-
+    readConfiguration();
+    if (m_logToFileEnabled)
+    {
+        if (!m_logFile.open(QIODevice::Append | QIODevice::Text))
+        {
+            qWarning() << "Failed to open log file:" << m_logFile.errorString();
+            m_logToFileEnabled = false;
+        }
+    }
 }
 
 Logger::~Logger()
 {
-
+    if (m_logFile.isOpen())
+        m_logFile.close();
 }
 
 Logger &Logger::instance()

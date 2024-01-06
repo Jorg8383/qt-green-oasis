@@ -41,5 +41,13 @@ void Logger::readConfiguration()
 
 QString Logger::logLevelToString(QtMsgType type)
 {
-
+    switch(type)
+    {
+    case QtDebugMsg: return "DEBUG";
+    case QtInfoMsg: return "INFO";
+    case QtWarningMsg: return "WARNING";
+    case QtCriticalMsg: return "CRITICAL";
+    case QtFatalMsg: return "FATAL";
+    default: return "UNKNOWN";
+    }
 }

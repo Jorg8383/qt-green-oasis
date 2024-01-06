@@ -35,7 +35,7 @@ bool WeatherFetcher::fetchIsFinished() const
 
 void WeatherFetcher::startFetching(int interval)
 {
-    qDebug() << this << "startFetching() with interval" << interval << "is being invoked";
+    qDebug() << this << "startFetching() with an interval of" << interval << "milliseconds";
     m_timer->start(interval); // Interval in milliseconds
 }
 

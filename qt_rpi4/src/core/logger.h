@@ -8,6 +8,7 @@
 #include <QMutexLocker>
 #include <QDebug>
 #include <QSettings>
+#include <QStandardPaths>
 #include <configmanager.h>
 
 class Logger

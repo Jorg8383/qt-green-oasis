@@ -60,9 +60,15 @@ void Logger::readConfiguration()
 {
     m_logToFileEnabled = ConfigManager::instance().getValue("Logging/LogToFile").toBool();
     m_logToConsoleEnabled = ConfigManager::instance().getValue("Logging/LogToConsole").toBool();
-    QString filePath = ConfigManager::instance().getValue("Logging/FilePath").toString();
-    m_logFile.setFileName(filePath);
 
+    // Use the temp directory for the log file
+    QString appDataPath = QStandardPaths::writableLocation(QStandardPaths::TempLocation);
+    QString logFileName = ConfigManager::instance().getValue("Logging/FileName").toString();
+    QString logFilePath = QDir(appDataPath).filePath(logFileName);
+
+    if (m_logToFileEnabled) {
+        m_logFile.setFileName(logFilePath);
+    }
 }
 
 QString Logger::logLevelToString(QtMsgType type)

@@ -48,39 +48,6 @@ void WeatherFetcherTest::testWeatherRequest()
 
 }
 
-// void WeatherFetcherTest::testWeatherRequest()
-// {
-//     // Create a mock network manager
-//     MockNetworkAccessManager networkManager(m_jsonData);
-
-//     // Create a WeatherModel
-//     WeatherModel weatherModel;
-
-//     // Get the API key from the config.ini file
-//     auto apiKey = ConfigManager::instance().getValue("Weather/OpenWeatherApiKey");
-
-//     // Create a WeatherFetcher instance for testing
-//     WeatherFetcher weatherFetcher(networkManager, weatherModel, apiKey.toString());
-
-//     // Connect signals for testing
-//     QSignalSpy dataUpdatedSpy(&weatherFetcher, &WeatherFetcher::dataUpdated);
-//     QSignalSpy networkErrorSpy(&weatherFetcher, &WeatherFetcher::networkError);
-//     QSignalSpy networkFinishedSpy(&networkManager, &MockNetworkAccessManager::finished);
-
-//     // Request weather data
-//     auto latitude = ConfigManager::instance().getValue("Weather/Latitude");
-//     auto longitude = ConfigManager::instance().getValue("Weather/Longitude");
-//     weatherFetcher.requestData(latitude.toDouble(), longitude.toDouble());
-
-//     // Wait for signals to be emitted
-//     QVERIFY2(networkFinishedSpy.wait(), "MockNetworkAccessManager::finished signal not emitted");
-//     QVERIFY2(dataUpdatedSpy.wait(), "dataUpdated signal not emitted");
-//     QVERIFY2(networkErrorSpy.isEmpty(), "Unexpected networkError signal");
-
-//     // Validate the results
-//     QCOMPARE(weatherModel.rowCount(), 40);
-//     QCOMPARE(weatherModel.data(weatherModel.index(0), WeatherModel::WeatherMainRole).toString(), "Clouds");
-// }
 
 void WeatherFetcherTest::testNetworkError()
 {

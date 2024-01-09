@@ -102,7 +102,7 @@ void WeatherFetcherTest::initTestCase()
     try {
         ConfigManager::instance().initialise("/home/parallels/QtProjects/qt-green-oasis/qt_rpi4/resources/config/config.ini");
     } catch (const std::exception &e) {
-        qDebug() << "Error: " << this << e.what();
+        qWarning() << "Error: " << this << e.what();
     }
 
 }

@@ -14,12 +14,18 @@ WeatherData::WeatherData(QString objectName,
     if (!data.isEmpty())
     {
         extractData(data);
+        qDebug() << this << "has been successfully created";
     }
     else
     {
         qWarning() << this << "Weather data - QJsonObject - is empty!";
     }
 
+}
+
+WeatherData::~WeatherData()
+{
+    qDebug() << this << "has been destroyed";
 }
 
 void WeatherData::extractData(const QJsonObject &data)

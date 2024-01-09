@@ -77,7 +77,13 @@ QHash<int, QByteArray> WeatherModel::roleNames() const
 
 void WeatherModel::setWeatherData(QList<WeatherData *> newData)
 {
-    beginResetModel(); // Any views attached to this model will be reset as well
+
+    // Clear existing data
+    if (m_data.count() != 0)
+    {
+        qDeleteAll(m_data);
+    }
+    m_data.clear();
 
     // Replace the old data with new data
     m_data = newData;
@@ -92,18 +98,8 @@ void WeatherModel::setWeatherData(QList<WeatherData *> newData)
         }
     }
 
+    // Any views attached to this model will be reset as well
+    beginResetModel();
     endResetModel();
     emit countChanged(rowCount());
 }
-
-
-// void WeatherModel::setWeatherData(QList<WeatherData *> newData)
-// {
-//     beginResetModel(); // Any views attached to this model will be reset as well
-
-//     // Replace the old data with new data
-//     m_data = newData;
-
-//     endResetModel();
-//     emit countChanged(rowCount());
-// }

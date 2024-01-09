@@ -31,6 +31,7 @@ public:
                          const QString& cityName = "",
                          const bool isCurrentWeather = false,
                          QObject *parent = nullptr);
+    ~WeatherData();
 
     // Properties
     bool isCurrentWeather() const;

@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
     QNetworkAccessManager nam(&app);
     WeatherFetcher weatherFetcher(&nam, weatherModel, apiKey.toString(), &app);
     initWeatherFetcher(weatherFetcher);
-    weatherFetcher.startFetching(5000); // [ms] Fetch the current weather in 5 second intervals
+    weatherFetcher.startFetching(20000); // [ms] Fetch the current weather in x second intervals
 
     return app.exec();
 }

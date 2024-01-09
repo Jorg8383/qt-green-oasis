@@ -82,6 +82,28 @@ void WeatherModel::setWeatherData(QList<WeatherData *> newData)
     // Replace the old data with new data
     m_data = newData;
 
+    for (WeatherData* weather : m_data)
+    {
+        if (weather)
+        {
+            qDebug() << weather->objectName()
+                     << "City:" << weather->cityName()
+                     << "Temperature:" << weather->mainTemp();
+        }
+    }
+
     endResetModel();
     emit countChanged(rowCount());
 }
+
+
+// void WeatherModel::setWeatherData(QList<WeatherData *> newData)
+// {
+//     beginResetModel(); // Any views attached to this model will be reset as well
+
+//     // Replace the old data with new data
+//     m_data = newData;
+
+//     endResetModel();
+//     emit countChanged(rowCount());
+// }

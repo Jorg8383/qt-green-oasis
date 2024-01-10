@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Controls
 
 // Import C++ modules into QML
-import com.greenoasis.weathermodel
-import com.greenoasis.weatherdata
+// import com.greenoasis.weathermodel
+// import com.greenoasis.weatherdata
 
 ApplicationWindow {
     id: window

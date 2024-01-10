@@ -1,14 +1,23 @@
 import QtQuick 2.15
 import QtQuick.Controls
 
-import com.greenoasis.weathermodel
-import com.greenoasis.weatherdata
+import com.greenoasis.weather 1.0
+// import com.greenoasis.weatherdata
 
 Item {
     id: weatherPage
 
-    WeatherModel {
-        id: weatherModel
+    // For debugging purposes only!
+    Component.onCompleted: {
+        console.log("onCompleted - weatherModelCount:" + weatherModel.count)
+    }
+
+    // For debugging purposes only!
+    Connections {
+        target: weatherModel
+        function onCountChanged(newCount) {
+            console.log("QML - countChanged signal was received with new content:", newCount)
+        }
     }
 
     Row {
@@ -23,7 +32,7 @@ Item {
             ListView {
                 model: weatherModel
                 delegate: Rectangle {
-                    visible: model.isCurrentWeather
+                    visible: model.isCurrentWeatherRole
                     width: parent.width
                     height: visible ? 100 : 0
                     color: index % 2 == 0 ? "lightgray" : "white"
@@ -32,12 +41,12 @@ Item {
                         anchors.fill: parent
                         spacing: 10
 
-                        Image {
-                            source: "images/" + model.weatherIcon + ".png"
-                            width: 50
-                            height: 50
-                            anchors.verticalCenter: parent.verticalCenter
-                        }
+                        // Image {
+                        //     source: "images/" + model.weatherIcon + ".png"
+                        //     width: 50
+                        //     height: 50
+                        //     anchors.verticalCenter: parent.verticalCenter
+                        // }
 
                         Column {
                             Label {
@@ -85,7 +94,7 @@ Item {
             ListView {
                 model: weatherModel
                 delegate: Rectangle {
-                    visible: !model.isCurrentWeather
+                    visible: !model.isCurrentWeatherRole
                     width: parent.width
                     height: visible ? 100 : 0
                     color: index % 2 == 0 ? "lightgray" : "white"
@@ -94,12 +103,12 @@ Item {
                         anchors.fill: parent
                         spacing: 10
 
-                        Image {
-                            source: "images/" + model.weatherIcon + ".png"
-                            width: 50
-                            height: 50
-                            anchors.verticalCenter: parent.verticalCenter
-                        }
+                        // Image {
+                        //     source: "images/" + model.weatherIcon + ".png"
+                        //     width: 50
+                        //     height: 50
+                        //     anchors.verticalCenter: parent.verticalCenter
+                        // }
 
                         Column {
                             Label {

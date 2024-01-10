@@ -16,6 +16,7 @@ void printImportPathsToConsole(QQmlApplicationEngine& engine);
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
+    QQmlApplicationEngine engine;
 
     // Initialise the ConfigManager
     try {
@@ -29,16 +30,8 @@ int main(int argc, char *argv[])
     qInstallMessageHandler(customMessageHandler);
 
     // Register and expose C++ classes to QML
-    qmlRegisterType<WeatherData>("com.greenoasis.weatherdata", 1, 0, "WeatherData");
-    qmlRegisterType<WeatherModel>("com.greenoasis.weathermodel", 1, 0, "WeatherModel");
-
-    QQmlApplicationEngine engine;
-    // Follow the new URL policy introduced in Qt6.5, where ':/qt/qml/' is the default resource prefix for QML modules.
-    const QUrl url(u"qrc:/qt/qml/qt_rpi4/qml/Main.qml"_qs);
-    QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed,
-        &app, []() { QCoreApplication::exit(-1); },
-        Qt::QueuedConnection);
-    engine.load(url);
+    qmlRegisterType<WeatherData>("com.greenoasis.weather", 1, 0, "WeatherData");
+    qmlRegisterType<WeatherModel>("com.greenoasis.weather", 1, 0, "WeatherModel");
 
     // printImportPathsToConsole(engine);
 
@@ -47,11 +40,18 @@ int main(int argc, char *argv[])
 
     // Create objects related to the weather feature
     WeatherModel weatherModel(&app);
-    // engine.rootContext()->setContextProperty("weatherModel", &weatherModel);
+    engine.rootContext()->setContextProperty("weatherModel", &weatherModel);
     QNetworkAccessManager nam(&app);
     WeatherFetcher weatherFetcher(&nam, weatherModel, apiKey.toString(), &app);
     initWeatherFetcher(weatherFetcher);
     weatherFetcher.startFetching(20000); // [ms] Fetch the current weather in x second intervals
+
+    // Follow the new URL policy introduced in Qt6.5, where ':/qt/qml/' is the default resource prefix for QML modules.
+    const QUrl url(u"qrc:/qt/qml/qt_rpi4/qml/Main.qml"_qs);
+    QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed,
+        &app, []() { QCoreApplication::exit(-1); },
+        Qt::QueuedConnection);
+    engine.load(url);
 
     return app.exec();
 }

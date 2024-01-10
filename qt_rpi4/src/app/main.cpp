@@ -17,6 +17,14 @@ int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
+    // Initialise the ConfigManager
+    try {
+        // TODO get rid of absolute path
+        ConfigManager::instance().initialise("/home/parallels/QtProjects/qt-green-oasis/qt_rpi4/resources/config/config.ini");
+    } catch (const std::exception &e) {
+        qDebug() << "Exception ocurred while initialising the ConfigManager: " << e.what();
+    }
+
     // Install the custom message handler
     qInstallMessageHandler(customMessageHandler);
 
@@ -34,19 +42,12 @@ int main(int argc, char *argv[])
 
     // printImportPathsToConsole(engine);
 
-    // Initialise the ConfigManager
-    try {
-        // TODO get rid of absolute path
-        ConfigManager::instance().initialise("/home/parallels/QtProjects/qt-green-oasis/qt_rpi4/resources/config/config.ini");
-    } catch (const std::exception &e) {
-        qDebug() << "Exception ocurred while initialising the ConfigManager: " << e.what();
-    }
-
     // Get the openweather API key from the config.ini file
     auto apiKey = ConfigManager::instance().getValue("Weather/OpenWeatherApiKey");
 
     // Create objects related to the weather feature
     WeatherModel weatherModel(&app);
+    // engine.rootContext()->setContextProperty("weatherModel", &weatherModel);
     QNetworkAccessManager nam(&app);
     WeatherFetcher weatherFetcher(&nam, weatherModel, apiKey.toString(), &app);
     initWeatherFetcher(weatherFetcher);

@@ -30,10 +30,11 @@ Item {
             color: "lightblue"
 
             ListView {
+                id: listViewCurrent
                 model: weatherModel
                 delegate: Rectangle {
-                    visible: model.isCurrentWeatherRole
-                    width: parent.width
+                    visible: model.isCurrentWeather
+                    width: listViewCurrent.width
                     height: visible ? 100 : 0
                     color: index % 2 == 0 ? "lightgray" : "white"
 
@@ -92,10 +93,11 @@ Item {
             color: "lightgreen"
 
             ListView {
+                id: listViewForecast
                 model: weatherModel
                 delegate: Rectangle {
-                    visible: !model.isCurrentWeatherRole
-                    width: parent.width
+                    visible: !model.isCurrentWeather
+                    width: listViewForecast.width
                     height: visible ? 100 : 0
                     color: index % 2 == 0 ? "lightgray" : "white"
 

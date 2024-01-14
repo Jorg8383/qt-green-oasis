@@ -61,7 +61,7 @@ QHash<int, QByteArray> WeatherModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[CityNameRole] = "cityName";
-    roles[IsCurrentWeatherRole] = "isCurrentWeatherRole";
+    roles[IsCurrentWeatherRole] = "isCurrentWeather";
     roles[WeatherDescriptionRole] = "weatherDescription";
     roles[WeatherMainRole] = "weatherMain";
     roles[WeatherIconRole] = "weatherIcon";
@@ -77,6 +77,8 @@ QHash<int, QByteArray> WeatherModel::roleNames() const
 
 void WeatherModel::setWeatherData(QList<WeatherData *> newData)
 {
+    // Any views attached to this model will be reset as well
+    beginResetModel();
 
     // Clear existing data
     if (m_data.count() != 0)
@@ -98,8 +100,6 @@ void WeatherModel::setWeatherData(QList<WeatherData *> newData)
         }
     }
 
-    // Any views attached to this model will be reset as well
-    beginResetModel();
     endResetModel();
     emit countChanged(rowCount());
 }

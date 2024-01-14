@@ -2,7 +2,6 @@ import QtQuick 2.15
 import QtQuick.Controls
 
 import com.greenoasis.weather 1.0
-// import com.greenoasis.weatherdata
 
 Item {
     id: weatherPage

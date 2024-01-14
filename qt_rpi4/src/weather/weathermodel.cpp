@@ -96,7 +96,8 @@ void WeatherModel::setWeatherData(QList<WeatherData *> newData)
         {
             qDebug() << weather->objectName()
                      << "City:" << weather->cityName()
-                     << "Temperature:" << weather->mainTemp();
+                     << "Temperature:" << weather->mainTemp()
+                     << "Description:" << weather->weatherDescription();
         }
     }
 

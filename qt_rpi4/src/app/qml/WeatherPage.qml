@@ -12,17 +12,17 @@ Item {
 
     property var propModel: null // The model property will be set from outside
 
-    // Assuming 'weatherModel' is the id of your WeatherModel instance
     ListView {
         id: listView
         anchors.fill: parent
+        orientation: ListView.Horizontal // Set the ListView to horizontal orientation
         model: propModel // Set your WeatherModel instance as the model
 
         delegate: Item {
-            width: listView.width
-            height: 100 // Set a fixed height for each list item
+            width: 200 // Set a fixed width for each list item
+            height: listView.height // The height matches the ListView's height
 
-            RowLayout {
+            ColumnLayout {
                 anchors.fill: parent
                 spacing: 10
 
@@ -46,5 +46,57 @@ Item {
                 // ... add more Labels for additional data as needed
             }
         }
+
+        // Scrollbar for the ListView
+        ScrollBar.horizontal: ScrollBar {
+            id: horizontalScrollBar
+            active: true
+        }
     }
 }
+
+
+
+// Item {
+//     id: weatherPage
+//     width: 800
+//     height: 480
+
+//     property var propModel: null // The model property will be set from outside
+
+//     // Assuming 'weatherModel' is the id of your WeatherModel instance
+//     ListView {
+//         id: listView
+//         anchors.fill: parent
+//         model: propModel // Set your WeatherModel instance as the model
+
+//         delegate: Item {
+//             width: listView.width
+//             height: 100 // Set a fixed height for each list item
+
+//             RowLayout {
+//                 anchors.fill: parent
+//                 spacing: 10
+
+//                 // Display weather data using the role names defined in the WeatherModel
+//                 Label {
+//                     text: cityName
+//                     font.pixelSize: 20
+//                 }
+//                 Label {
+//                     text: weatherDescription
+//                     font.pixelSize: 16
+//                 }
+//                 Label {
+//                     text: "Temp: " + mainTemp + "°C"
+//                     font.pixelSize: 16
+//                 }
+//                 Label {
+//                     text: "Wind: " + windSpeed + " m/s"
+//                     font.pixelSize: 16
+//                 }
+//                 // ... add more Labels for additional data as needed
+//             }
+//         }
+//     }
+// }

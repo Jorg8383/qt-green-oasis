@@ -12,91 +12,86 @@ Item {
 
     property var propModel: null // The model property will be set from outside
 
-    ListView {
-        id: listView
+    Column {
         anchors.fill: parent
-        orientation: ListView.Horizontal // Set the ListView to horizontal orientation
-        model: propModel // Set your WeatherModel instance as the model
 
-        delegate: Item {
-            width: 200 // Set a fixed width for each list item
-            height: listView.height // The height matches the ListView's height
+        // Upper section for current weather
+        Rectangle {
+            id: currentWeatherDisplay
+            width: parent.width
+            height: parent.height / 2  // Use half of the parent's height
+            color: "#a3c9f7"
 
-            ColumnLayout {
-                anchors.fill: parent
-                spacing: 10
-
-                // Display weather data using the role names defined in the WeatherModel
-                Label {
-                    text: cityName
-                    font.pixelSize: 20
-                }
-                Label {
-                    text: weatherDescription
-                    font.pixelSize: 16
-                }
-                Label {
-                    text: "Temp: " + mainTemp + "°C"
-                    font.pixelSize: 16
-                }
-                Label {
-                    text: "Wind: " + windSpeed + " m/s"
-                    font.pixelSize: 16
-                }
-                // ... add more Labels for additional data as needed
-            }
+            // Assuming the first item in the model is the current weather
+            // and has the 'isCurrentWeather' property set to true.
+            // Label {
+            //     text: "Current Temp: " + (propModel ? propModel.get(0).mainTemp : "") + "°C"
+            //     font.pixelSize: 24
+            //     anchors.centerIn: parent
+            // }
+            // Label {
+            //     text: "Min Temp: " + propModel.get(0).mainTempMin + "°C"
+            //     font.pixelSize: 20
+            //     anchors { top: previousLabel.bottom; horizontalCenter: parent.horizontalCenter }
+            // }
+            // Label {
+            //     text: "Max Temp: " + propModel.get(0).mainTempMax + "°C"
+            //     font.pixelSize: 20
+            //     anchors { top: previousLabel.bottom; horizontalCenter: parent.horizontalCenter }
+            // }
         }
 
-        // Scrollbar for the ListView
-        ScrollBar.horizontal: ScrollBar {
-            id: horizontalScrollBar
-            active: true
+        // Lower section for forecast list
+        Rectangle {
+            id: forecastDisplay
+            width: parent.width
+            height: parent.height / 2  // Use the remaining half of the parent's height
+            color: "#cbe8fc"
+
+            ListView {
+                anchors.fill: parent
+                orientation: ListView.Horizontal // Set the ListView to horizontal orientation
+                layoutDirection: Qt.LeftToRight
+                model: propModel // Set your WeatherModel instance as the model
+                clip: true // Clip the ListView's contents
+
+                delegate: Item {
+                    width: 200 // Set a fixed width for each list item
+                    height: ListView.height // The height matches the ListView's height
+
+                    // Check if the item is not the current weather
+                    // visible: index > 0
+
+                    ColumnLayout {
+                        anchors.fill: parent
+                        spacing: 10
+
+                        Label {
+                            text:  "isCurrent: " + isCurrentWeather
+                            font.pixelSize: 12
+                        }
+
+                        Label {
+                            text: "Temp: " + mainTemp + "°C"
+                            font.pixelSize: 24
+                        }
+                        Label {
+                            text: "Min Temp: " + mainTempMin + "°C"
+                            font.pixelSize: 20
+                        }
+                        Label {
+                            text: "Max Temp: " + mainTempMax + "°C"
+                            font.pixelSize: 20
+                        }
+                    }
+                }
+                        // Scrollbar for the ListView
+                        ScrollBar.horizontal: ScrollBar {
+                            id: horizontalScrollBar
+                            active: true
+                        }
+
+            }
         }
     }
 }
-
-
-
-// Item {
-//     id: weatherPage
-//     width: 800
-//     height: 480
-
-//     property var propModel: null // The model property will be set from outside
-
-//     // Assuming 'weatherModel' is the id of your WeatherModel instance
-//     ListView {
-//         id: listView
-//         anchors.fill: parent
-//         model: propModel // Set your WeatherModel instance as the model
-
-//         delegate: Item {
-//             width: listView.width
-//             height: 100 // Set a fixed height for each list item
-
-//             RowLayout {
-//                 anchors.fill: parent
-//                 spacing: 10
-
-//                 // Display weather data using the role names defined in the WeatherModel
-//                 Label {
-//                     text: cityName
-//                     font.pixelSize: 20
-//                 }
-//                 Label {
-//                     text: weatherDescription
-//                     font.pixelSize: 16
-//                 }
-//                 Label {
-//                     text: "Temp: " + mainTemp + "°C"
-//                     font.pixelSize: 16
-//                 }
-//                 Label {
-//                     text: "Wind: " + windSpeed + " m/s"
-//                     font.pixelSize: 16
-//                 }
-//                 // ... add more Labels for additional data as needed
-//             }
-//         }
-//     }
-// }

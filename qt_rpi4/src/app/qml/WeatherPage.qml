@@ -69,23 +69,22 @@ Item {
                         Label {
                             text: Qt.formatDateTime(dateAndTime, "dddd")
                             font.pixelSize: 16
+                             Layout.alignment: Qt.AlignCenter
                         }
                         Label {
                             text: Qt.formatDateTime(dateAndTime, "hh:mm")
                             font.pixelSize: 16
-                        }
-
-                        Label {
-                            text: mainTemp + "°C"
-                            font.pixelSize: 24
+                            Layout.alignment: Qt.AlignCenter
                         }
                         Label {
                             text: "Min: " + mainTempMin + "°C"
                             font.pixelSize: 16
+                            Layout.alignment: Qt.AlignCenter
                         }
                         Label {
                             text: "Max: " + mainTempMax + "°C"
                             font.pixelSize: 16
+                            Layout.alignment: Qt.AlignCenter
                         }
                     }
 

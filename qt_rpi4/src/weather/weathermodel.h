@@ -16,6 +16,7 @@ public:
     enum Roles {
         CityNameRole = Qt::UserRole + 1,
         IsCurrentWeatherRole,
+        DateAndTimeRole,
         WeatherDescriptionRole,
         WeatherMainRole,
         WeatherIconRole,

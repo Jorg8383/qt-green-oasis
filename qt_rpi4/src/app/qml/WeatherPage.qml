@@ -67,6 +67,15 @@ Item {
                         spacing: 10
 
                         Label {
+                            text: Qt.formatDateTime(dateAndTime, "dddd")
+                            font.pixelSize: 16
+                        }
+                        Label {
+                            text: Qt.formatDateTime(dateAndTime, "hh:mm")
+                            font.pixelSize: 16
+                        }
+
+                        Label {
                             text: mainTemp + "°C"
                             font.pixelSize: 24
                         }

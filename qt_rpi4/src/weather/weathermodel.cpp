@@ -31,6 +31,8 @@ QVariant WeatherModel::data(const QModelIndex &index, int role) const
         return data->cityName();
     case IsCurrentWeatherRole:
         return data->isCurrentWeather();
+    case DateAndTimeRole:
+        return data->qDateTime();
     case WeatherDescriptionRole:
         return data->weatherDescription();
     case WeatherMainRole:
@@ -62,6 +64,7 @@ QHash<int, QByteArray> WeatherModel::roleNames() const
     QHash<int, QByteArray> roles;
     roles[CityNameRole] = "cityName";
     roles[IsCurrentWeatherRole] = "isCurrentWeather";
+    roles[DateAndTimeRole] = "dateAndTime";
     roles[WeatherDescriptionRole] = "weatherDescription";
     roles[WeatherMainRole] = "weatherMain";
     roles[WeatherIconRole] = "weatherIcon";

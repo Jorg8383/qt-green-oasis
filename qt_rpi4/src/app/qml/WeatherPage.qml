@@ -18,9 +18,9 @@ Item {
         // Upper section for current weather
         Rectangle {
             id: currentWeatherInfo
-            width: parent.width / 2
+            width: parent.width
             height: parent.height / 2
-            color: "#80aaff"
+            color: "#999999"
 
             RowLayout {
                 id: currentWeatherDisplay
@@ -29,9 +29,7 @@ Item {
                 spacing: 10 // Add spacing between the left and right parts
 
                 ColumnLayout {
-                    // Layout.alignment: Qt.AlignTop
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                    // anchors.fill: parent
                     spacing: 10
 
                     Label {
@@ -39,25 +37,16 @@ Item {
                         font.pixelSize: 16
                     }
                     Label {
-                        text: propModel.currentWeatherDescription
-                        font.pixelSize: 16
-                    }
-                    Label {
                         text: propModel.currentMainTemp + "°C"
                         font.pixelSize: 16
                     }
                 }
-                Rectangle {
-                    id: currentWeatherIcon
-                    width: parent.width / 2
-                    height: parent.height
-                    color: "#80aaff"
+                ColumnLayout {
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    spacing: 10
 
                     Image {
                         id: currentWeatherIconImage
-                        width: 50
-                        height: 50
-                        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                         source: "https://openweathermap.org/img/wn/" + propModel.currentWeatherIcon + "@2x.png"
 
                         // Handle errors or loading events
@@ -69,7 +58,12 @@ Item {
                             }
                         }
                     }
+                    Label {
+                        text: propModel.currentWeatherDescription
+                        font.pixelSize: 16
+                    }
                 }
+
             }
         }
 
@@ -124,8 +118,8 @@ Item {
                         }
                         Image {
                             id: weatherIconImage
-                            width: 50
-                            height: 50
+                            // width: 50
+                            // height: 50
                             Layout.alignment: Qt.AlignCenter
                             source: "https://openweathermap.org/img/wn/" + weatherIcon + "@2x.png"
 

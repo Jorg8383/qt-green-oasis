@@ -15,6 +15,7 @@ WeatherData::WeatherData(QString objectName,
     {
         extractData(data);
         qDebug() << this << "has been successfully created";
+        // qDebug() << m_qDateTime << "mainTemp:" << m_mainTemp << "mainTempMin:" << m_mainTempMin << "mainTempMax:" << m_mainTempMax;
     }
     else
     {

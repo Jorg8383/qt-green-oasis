@@ -77,12 +77,12 @@ Item {
                             Layout.alignment: Qt.AlignCenter
                         }
                         Label {
-                            text: "Min: " + mainTempMin + "°C"
+                            text: mainTemp + "°C"
                             font.pixelSize: 16
                             Layout.alignment: Qt.AlignCenter
                         }
                         Label {
-                            text: "Max: " + mainTempMax + "°C"
+                            text: "Rain: " + pop + "%"
                             font.pixelSize: 16
                             Layout.alignment: Qt.AlignCenter
                         }

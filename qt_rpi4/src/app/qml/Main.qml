@@ -1,7 +1,9 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-// import com.greenoasis.weather 1.0
+
+import com.greenoasis.weather 1.0
+
 
 Window {
     visible: true
@@ -11,6 +13,6 @@ Window {
 
     WeatherPage {
         id: weatherPage
-        model: weatherModel
+        propModel: weatherModel
     }
 }

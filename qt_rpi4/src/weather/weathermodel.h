@@ -9,6 +9,12 @@ class WeatherModel : public QAbstractListModel
 {
     Q_OBJECT
     Q_PROPERTY(int count READ rowCount NOTIFY countChanged)
+
+    Q_PROPERTY(QString currentCityName READ currentCityName NOTIFY currentDataChanged)
+    Q_PROPERTY(QString currentWeatherDescription READ currentWeatherDescription NOTIFY currentDataChanged)
+    Q_PROPERTY(QString currentWeatherIcon READ currentWeatherIcon NOTIFY currentDataChanged)
+    Q_PROPERTY(double currentMainTemp READ currentMainTemp NOTIFY currentDataChanged)
+
 public:
     explicit WeatherModel(QObject *parent = nullptr);
     ~WeatherModel(); // Deconstructor
@@ -36,8 +42,14 @@ public:
 
     void setWeatherData(QList<WeatherData*> newData);
 
+    QString currentCityName() const;
+    QString currentWeatherDescription() const;
+    QString currentWeatherIcon() const;
+    double currentMainTemp() const;
+
 signals:
     void countChanged(int count);
+    void currentDataChanged();
 
 private:
     QList<WeatherData*> m_data;

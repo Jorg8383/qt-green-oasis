@@ -108,4 +108,37 @@ void WeatherModel::setWeatherData(QList<WeatherData *> newData)
 
     endResetModel();
     emit countChanged(rowCount());
+    emit currentDataChanged();
+}
+
+QString WeatherModel::currentCityName() const
+{
+    QString value{};
+    if (!m_data.isEmpty())
+        value = m_data.first()->cityName();
+    return value;
+}
+
+QString WeatherModel::currentWeatherDescription() const
+{
+    QString value{};
+    if (!m_data.isEmpty())
+        value = m_data.first()->weatherDescription();
+    return value;
+}
+
+QString WeatherModel::currentWeatherIcon() const
+{
+    QString value{};
+    if (!m_data.isEmpty())
+        value = m_data.first()->weatherIcon();
+    return value;
+}
+
+double WeatherModel::currentMainTemp() const
+{
+    double value{};
+    if (!m_data.isEmpty())
+        value = m_data.first()->mainTemp();
+    return value;
 }

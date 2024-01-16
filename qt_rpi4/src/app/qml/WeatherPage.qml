@@ -16,30 +16,74 @@ Item {
         anchors.fill: parent
 
         // Upper section for current weather
-        Rectangle {
-            id: currentWeatherDisplay
-            width: parent.width
-            height: parent.height / 2  // Use half of the parent's height
-            color: "#a3c9f7"
+        RowLayout {
+             id: currentWeatherDisplay
+             width: parent.width
+             height: parent.height / 2  // Use half of the parent's height
+             spacing: 10 // Add spacing between the left and right parts
 
-            // Assuming the first item in the model is the current weather
-            // and has the 'isCurrentWeather' property set to true.
-            // Label {
-            //     text: "Current Temp: " + (propModel ? propModel.get(0).mainTemp : "") + "°C"
-            //     font.pixelSize: 24
-            //     anchors.centerIn: parent
-            // }
-            // Label {
-            //     text: "Min Temp: " + propModel.get(0).mainTempMin + "°C"
-            //     font.pixelSize: 20
-            //     anchors { top: previousLabel.bottom; horizontalCenter: parent.horizontalCenter }
-            // }
-            // Label {
-            //     text: "Max Temp: " + propModel.get(0).mainTempMax + "°C"
-            //     font.pixelSize: 20
-            //     anchors { top: previousLabel.bottom; horizontalCenter: parent.horizontalCenter }
-            // }
+             Rectangle {
+                 id: currentWeatherInfo
+                 width: parent.width / 2
+                 height: parent.height / 2
+
+                 ColumnLayout {
+                     anchors.fill: parent
+                     spacing: 10
+
+                     Label {
+                         text: propModel.currentCityName
+                         font.pixelSize: 16
+                     }
+                     Label {
+                         text: propModel.currentWeatherDescription
+                         font.pixelSize: 16
+                     }
+                     Label {
+                         text: propModel.currentMainTemp + "°C"
+                         font.pixelSize: 16
+                     }
+                 }
+             }
+
+             Rectangle {
+                 id: currentWeatherIcon
+                 width: parent.width / 2
+                 height: parent.height
+                 color: "#80aaff"
+
+                 Image {
+                     id: currentWeatherIconImage
+                     width: 50
+                     height: 50
+                     Layout.alignment: Qt.AlignCenter
+                     source: "https://openweathermap.org/img/wn/" + propModel.currentWeatherIcon + "@2x.png"
+
+                     // Handle errors or loading events
+                     onStatusChanged: {
+                         if (currentWeatherIconImage.status === Image.Error) {
+                             console.error("Error loading weather icon:", currentWeatherIconImage.source)
+                         } else if (currentWeatherIconImage.status === Image.Loading) {
+                             console.log("Loading weather icon:", currentWeatherIconImage.source)
+                         }
+                     }
+                 }
+             }
+
         }
+
+        // Rectangle {
+        //     id: currentWeatherDisplay
+        //     width: parent.width
+        //     height: parent.height / 2  // Use half of the parent's height
+        //     color: "#a3c9f7"
+
+        //     Label {
+        //         text: propModel.currentCityName
+        //         font.pixelSize: 16
+        //     }
+
+        // }
 
         // Lower section for forecast list
         Rectangle {

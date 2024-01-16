@@ -29,15 +29,26 @@ Item {
                 spacing: 10 // Add spacing between the left and right parts
 
                 ColumnLayout {
-                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                    spacing: 10
+                    // Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    Layout.alignment: Qt.AlignTop | Qt.AlignLeft
+                    Layout.leftMargin: 30
+                    Layout.topMargin: 30
+                    spacing: 20
 
                     Label {
                         text: propModel.currentCityName
+                        font.pixelSize: 32
+                    }
+                    Label {
+                        text: "Temperature: " + propModel.currentMainTemp + " °C"
                         font.pixelSize: 16
                     }
                     Label {
-                        text: propModel.currentMainTemp + "°C"
+                        text: "Wind speed: " + propModel.currentWindSpeed + " m/s"
+                        font.pixelSize: 16
+                    }
+                    Label {
+                        text: "Rain: " + Math.floor(propModel.currentPop * 100) + " %"
                         font.pixelSize: 16
                     }
                 }

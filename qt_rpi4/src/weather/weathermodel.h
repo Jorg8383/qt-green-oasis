@@ -14,6 +14,9 @@ class WeatherModel : public QAbstractListModel
     Q_PROPERTY(QString currentWeatherDescription READ currentWeatherDescription NOTIFY currentDataChanged)
     Q_PROPERTY(QString currentWeatherIcon READ currentWeatherIcon NOTIFY currentDataChanged)
     Q_PROPERTY(double currentMainTemp READ currentMainTemp NOTIFY currentDataChanged)
+    Q_PROPERTY(double currentWindSpeed READ currentWindSpeed NOTIFY currentDataChanged)
+    Q_PROPERTY(double currentPop READ currentPop NOTIFY currentDataChanged)
+
 
 public:
     explicit WeatherModel(QObject *parent = nullptr);
@@ -46,6 +49,8 @@ public:
     QString currentWeatherDescription() const;
     QString currentWeatherIcon() const;
     double currentMainTemp() const;
+    double currentWindSpeed() const;
+    double currentPop() const;
 
 signals:
     void countChanged(int count);

@@ -142,3 +142,19 @@ double WeatherModel::currentMainTemp() const
         value = m_data.first()->mainTemp();
     return value;
 }
+
+double WeatherModel::currentWindSpeed() const
+{
+    double value{};
+    if (!m_data.isEmpty())
+        value = m_data.first()->windSpeed();
+    return value;
+}
+
+double WeatherModel::currentPop() const
+{
+    double value{};
+    if (!m_data.isEmpty())
+        value = m_data.first()->pop();
+    return value;
+}

@@ -29,7 +29,6 @@ Item {
                 spacing: 10 // Add spacing between the left and right parts
 
                 ColumnLayout {
-                    // Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     Layout.alignment: Qt.AlignTop | Qt.AlignLeft
                     Layout.leftMargin: 30
                     Layout.topMargin: 30
@@ -77,19 +76,6 @@ Item {
 
             }
         }
-
-        // Rectangle {
-        //     id: currentWeatherDisplay
-        //     width: parent.width
-        //     height: parent.height / 2  // Use half of the parent's height
-        //     color: "#a3c9f7"
-
-        //     Label {
-        //         text: propModel.currentCityName
-        //         font.pixelSize: 16
-        //     }
-
-        // }
 
         // Lower section for forecast list
         Rectangle {

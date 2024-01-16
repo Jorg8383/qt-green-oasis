@@ -130,12 +130,12 @@ Item {
                             }
                         }
                         Label {
-                            text: mainTemp + "°C"
+                            text: mainTemp + " °C"
                             font.pixelSize: 16
                             Layout.alignment: Qt.AlignCenter
                         }
                         Label {
-                            text: "Rain: " + Math.floor(pop * 100) + "%"
+                            text: "Rain: " + Math.floor(pop * 100) + " %"
                             font.pixelSize: 16
                             Layout.alignment: Qt.AlignCenter
                         }

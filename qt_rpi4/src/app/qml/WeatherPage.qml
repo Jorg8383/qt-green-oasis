@@ -46,7 +46,7 @@ Item {
             id: forecastDisplay
             width: parent.width
             height: parent.height / 2  // Use the remaining half of the parent's height
-            color: "#cbe8fc"
+            color: "#808080"
 
             ListView {
                 anchors.fill: parent
@@ -70,6 +70,7 @@ Item {
                             text: Qt.formatDateTime(dateAndTime, "dddd")
                             font.pixelSize: 16
                              Layout.alignment: Qt.AlignCenter
+                             Layout.topMargin: 10 // Add a margin to the top
                         }
                         Label {
                             text: Qt.formatDateTime(dateAndTime, "hh:mm")
@@ -98,7 +99,7 @@ Item {
                             Layout.alignment: Qt.AlignCenter
                         }
                         Label {
-                            text: "Rain: " + pop + "%"
+                            text: "Rain: " + Math.floor(pop * 100) + "%"
                             font.pixelSize: 16
                             Layout.alignment: Qt.AlignCenter
                         }

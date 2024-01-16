@@ -38,9 +38,11 @@ signals:
     void dataUpdated();
     void networkError(QNetworkReply::NetworkError errorCode, const QString& errorString);
 
+public slots:
+    void fetchWeatherData();
+
 private slots:
     void exractWeatherFromReply();
-    void fetchWeatherData();
 
 private:
     QNetworkRequest createWeatherRequest(QString url);

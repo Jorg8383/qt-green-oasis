@@ -67,7 +67,7 @@ void initWeatherFetcher(WeatherFetcher& weatherFetcher)
     auto longitude = ConfigManager::instance().getValue("Weather/Longitude");
     weatherFetcher.setLatitude(latitude.toDouble());
     weatherFetcher.setLongitude(longitude.toDouble());
-
+    weatherFetcher.fetchWeatherData();
     initDone = true;
 }
 

@@ -1,150 +1,84 @@
-import QtQuick 2.15
+// WeatherPage.qml
+import QtQuick
 import QtQuick.Controls
+import QtQuick.Layouts
 
 import com.greenoasis.weather 1.0
 
 Item {
     id: weatherPage
+    width: 800
+    height: 480
 
-    // For debugging purposes only!
-    Component.onCompleted: {
-        console.log("onCompleted - weatherModelCount:" + weatherModel.count)
-    }
-
-    // For debugging purposes only!
-    Connections {
-        target: weatherModel
-        function onCountChanged(newCount) {
-            console.log("QML - countChanged signal was received with new content:", newCount)
-        }
-    }
+    property var model: null // The model property will be set from outside
 
     Row {
         anchors.fill: parent
-        spacing: 10
 
-        // Current weather information
+        // Current weather display
         Rectangle {
-            id: currentWeather
-            color: "lightblue"
+            width: weatherPage.width / 2
+            height: weatherPage.height
+            color: "#a3c9f7"
 
             ListView {
-                id: listViewCurrent
-                model: weatherModel
-                // Within a delegate we don't need the 'model.' prefix, we can access the role names directly, e.g. cityName
-                delegate: Rectangle {
-                    // visible: isCurrentWeather
-                    visible: true
-                    width: listViewCurrent.width
-                    height: visible ? 100 : 0
-                    color: index % 2 == 0 ? "lightgray" : "green"
+                anchors.fill: parent
+                model: model // Use the property 'model' directly
+                delegate: Item {
+                    width: parent.width
+                    height: isCurrentWeather ? parent.height : 0
+                    visible: isCurrentWeather
 
-                    Row {
-                        anchors.fill: parent
+                    Column {
                         spacing: 10
+                        anchors.centerIn: parent
 
-                        // Image {
-                        //     source: "images/" + model.weatherIcon + ".png"
-                        //     width: 50
-                        //     height: 50
-                        //     anchors.verticalCenter: parent.verticalCenter
-                        // }
-
-                        Column {
-                            Label {
-                                text: cityName
-                                font.pixelSize: 20
-                            }
-
-                            Label {
-                                text: weatherMain
-                                font.pixelSize: 16
-                            }
-
-                            Label {
-                                text: weatherDescription
-                                font.pixelSize: 14
-                            }
+                        Label {
+                            text: "Temp: " + mainTemp + "°C"
+                            font.pixelSize: 24
                         }
-
-                        Column {
-                            Label {
-                                text: "Temp: " + mainTemp + "°C"
-                                font.pixelSize: 16
-                            }
-
-                            Label {
-                                text: "Wind: " + windSpeed + " m/s"
-                                font.pixelSize: 16
-                            }
-
-                            Label {
-                                text: "Rain: " + rain3h + " mm"
-                                font.pixelSize: 16
-                            }
+                        Label {
+                            text: "Min Temp: " + mainTempMin + "°C"
+                            font.pixelSize: 20
+                        }
+                        Label {
+                            text: "Max Temp: " + mainTempMax + "°C"
+                            font.pixelSize: 20
                         }
                     }
                 }
             }
         }
 
-        // Weather forecast
+        // Weather forecast display
         Rectangle {
-            id: forecast
-            color: "lightgreen"
+            width: weatherPage.width / 2
+            height: weatherPage.height
+            color: "#cbe8fc"
 
             ListView {
-                id: listViewForecast
-                model: weatherModel
-                delegate: Rectangle {
-                    visible: isCurrentWeather
-                    width: listViewForecast.width
-                    height: visible ? 100 : 0
-                    color: index % 2 == 0 ? "lightgray" : "white"
+                anchors.fill: parent
+                model: model // Use the property 'model' directly
+                delegate: Item {
+                    width: parent.width
+                    height: !isCurrentWeather ? 100 : 0
+                    visible: !isCurrentWeather && index > 0
 
-                    Row {
-                        anchors.fill: parent
+                    Column {
                         spacing: 10
+                        anchors.centerIn: parent
 
-                        // Image {
-                        //     source: "images/" + model.weatherIcon + ".png"
-                        //     width: 50
-                        //     height: 50
-                        //     anchors.verticalCenter: parent.verticalCenter
-                        // }
-
-                        Column {
-                            Label {
-                                text: cityName
-                                font.pixelSize: 20
-                            }
-
-                            Label {
-                                text: weatherMain
-                                font.pixelSize: 16
-                            }
-
-                            Label {
-                                text: weatherDescription
-                                font.pixelSize: 14
-                            }
+                        Label {
+                            text: "Temp: " + mainTemp + "°C"
+                            font.pixelSize: 24
                         }
-
-                        Column {
-                            Label {
-                                text: "Temp: " + mainTemp + "°C"
-                                font.pixelSize: 16
-                            }
-
-                            Label {
-                                text: "Wind: " + windSpeed + " m/s"
-                                font.pixelSize: 16
-                            }
-
-                            Label {
-                                text: "Rain: " + rain3h + " mm"
-                                font.pixelSize: 16
-                            }
+                        Label {
+                            text: "Min Temp: " + mainTempMin + "°C"
+                            font.pixelSize: 20
+                        }
+                        Label {
+                            text: "Max Temp: " + mainTempMax + "°C"
+                            font.pixelSize: 20
                         }
                     }
                 }

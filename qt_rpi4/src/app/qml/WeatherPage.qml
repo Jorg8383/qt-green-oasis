@@ -67,29 +67,25 @@ Item {
                         spacing: 10
 
                         Label {
-                            text:  "isCurrent: " + isCurrentWeather
-                            font.pixelSize: 12
-                        }
-
-                        Label {
-                            text: "Temp: " + mainTemp + "°C"
+                            text: mainTemp + "°C"
                             font.pixelSize: 24
                         }
                         Label {
-                            text: "Min Temp: " + mainTempMin + "°C"
-                            font.pixelSize: 20
+                            text: "Min: " + mainTempMin + "°C"
+                            font.pixelSize: 16
                         }
                         Label {
-                            text: "Max Temp: " + mainTempMax + "°C"
-                            font.pixelSize: 20
+                            text: "Max: " + mainTempMax + "°C"
+                            font.pixelSize: 16
                         }
                     }
+
                 }
-                        // Scrollbar for the ListView
-                        ScrollBar.horizontal: ScrollBar {
-                            id: horizontalScrollBar
-                            active: true
-                        }
+                // Scrollbar for the ListView
+                ScrollBar.horizontal: ScrollBar {
+                    id: horizontalScrollBar
+                    active: true
+                }
 
             }
         }

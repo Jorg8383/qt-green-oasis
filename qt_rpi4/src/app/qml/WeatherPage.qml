@@ -76,6 +76,22 @@ Item {
                             font.pixelSize: 16
                             Layout.alignment: Qt.AlignCenter
                         }
+                        Image {
+                            id: weatherIconImage
+                            width: 50
+                            height: 50
+                            Layout.alignment: Qt.AlignCenter
+                            source: "https://openweathermap.org/img/wn/" + weatherIcon + "@2x.png"
+
+                            // Handle errors or loading events
+                            onStatusChanged: {
+                                if (weatherIconImage.status === Image.Error) {
+                                    console.error("Error loading weather icon:", weatherIconImage.source)
+                                } else if (weatherIconImage.status === Image.Loading) {
+                                    console.log("Loading weather icon:", weatherIconImage.source)
+                                }
+                            }
+                        }
                         Label {
                             text: mainTemp + "°C"
                             font.pixelSize: 16

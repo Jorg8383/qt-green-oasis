@@ -16,60 +16,61 @@ Item {
         anchors.fill: parent
 
         // Upper section for current weather
-        RowLayout {
-             id: currentWeatherDisplay
-             width: parent.width
-             height: parent.height / 2  // Use half of the parent's height
-             spacing: 10 // Add spacing between the left and right parts
+        Rectangle {
+            id: currentWeatherInfo
+            width: parent.width / 2
+            height: parent.height / 2
+            color: "#80aaff"
 
-             Rectangle {
-                 id: currentWeatherInfo
-                 width: parent.width / 2
-                 height: parent.height / 2
+            RowLayout {
+                id: currentWeatherDisplay
+                width: currentWeatherInfo.width
+                height: currentWeatherInfo.height
+                spacing: 10 // Add spacing between the left and right parts
 
-                 ColumnLayout {
-                     anchors.fill: parent
-                     spacing: 10
+                ColumnLayout {
+                    // Layout.alignment: Qt.AlignTop
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    // anchors.fill: parent
+                    spacing: 10
 
-                     Label {
-                         text: propModel.currentCityName
-                         font.pixelSize: 16
-                     }
-                     Label {
-                         text: propModel.currentWeatherDescription
-                         font.pixelSize: 16
-                     }
-                     Label {
-                         text: propModel.currentMainTemp + "°C"
-                         font.pixelSize: 16
-                     }
-                 }
-             }
+                    Label {
+                        text: propModel.currentCityName
+                        font.pixelSize: 16
+                    }
+                    Label {
+                        text: propModel.currentWeatherDescription
+                        font.pixelSize: 16
+                    }
+                    Label {
+                        text: propModel.currentMainTemp + "°C"
+                        font.pixelSize: 16
+                    }
+                }
+                Rectangle {
+                    id: currentWeatherIcon
+                    width: parent.width / 2
+                    height: parent.height
+                    color: "#80aaff"
 
-             Rectangle {
-                 id: currentWeatherIcon
-                 width: parent.width / 2
-                 height: parent.height
-                 color: "#80aaff"
+                    Image {
+                        id: currentWeatherIconImage
+                        width: 50
+                        height: 50
+                        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                        source: "https://openweathermap.org/img/wn/" + propModel.currentWeatherIcon + "@2x.png"
 
-                 Image {
-                     id: currentWeatherIconImage
-                     width: 50
-                     height: 50
-                     Layout.alignment: Qt.AlignCenter
-                     source: "https://openweathermap.org/img/wn/" + propModel.currentWeatherIcon + "@2x.png"
-
-                     // Handle errors or loading events
-                     onStatusChanged: {
-                         if (currentWeatherIconImage.status === Image.Error) {
-                             console.error("Error loading weather icon:", currentWeatherIconImage.source)
-                         } else if (currentWeatherIconImage.status === Image.Loading) {
-                             console.log("Loading weather icon:", currentWeatherIconImage.source)
-                         }
-                     }
-                 }
-             }
-
+                        // Handle errors or loading events
+                        onStatusChanged: {
+                            if (currentWeatherIconImage.status === Image.Error) {
+                                console.error("Error loading weather icon:", currentWeatherIconImage.source)
+                            } else if (currentWeatherIconImage.status === Image.Loading) {
+                                console.log("Loading weather icon:", currentWeatherIconImage.source)
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         // Rectangle {
@@ -113,8 +114,8 @@ Item {
                         Label {
                             text: Qt.formatDateTime(dateAndTime, "dddd")
                             font.pixelSize: 16
-                             Layout.alignment: Qt.AlignCenter
-                             Layout.topMargin: 10 // Add a margin to the top
+                            Layout.alignment: Qt.AlignCenter
+                            Layout.topMargin: 10 // Add a margin to the top
                         }
                         Label {
                             text: Qt.formatDateTime(dateAndTime, "hh:mm")

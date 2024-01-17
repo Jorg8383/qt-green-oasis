@@ -13,6 +13,7 @@ Logger::Logger()
         } else
         {
             qInfo() << this << "Log file has been opened successfully";
+            qDebug() << "Log file: " << m_logFile.fileName();
         }
     }
 }
@@ -80,7 +81,7 @@ void Logger::readConfiguration()
 
     if (m_logToFileEnabled) {
         m_logFile.setFileName(logFilePath);
-        qDebug() << "Log file path" << logFilePath;
+        // qDebug() << "Log file path" << logFilePath;
     }
 }
 

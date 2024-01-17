@@ -52,7 +52,8 @@ Item {
                     }
                 }
                 ColumnLayout {
-                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+                    Layout.rightMargin: 150
                     spacing: 10
 
                     Image {
